@@ -4,7 +4,7 @@ export interface IRepository {
     set<T>(key: string, value: T): Promise<void>;
     delete(key: string): Promise<void>;
 }
-export interface IExpirableRepository {
+export interface IExpirableRepository extends IRepository {
     setWithExpire<T>(key: string, value: T, expiresInMillis: number): Promise<void>;
 }
 export declare abstract class SimpleRepository {

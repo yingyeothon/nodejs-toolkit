@@ -6,7 +6,7 @@ export interface IRepository {
   delete(key: string): Promise<void>;
 }
 
-export interface IExpirableRepository {
+export interface IExpirableRepository extends IRepository {
   setWithExpire<T>(
     key: string,
     value: T,
