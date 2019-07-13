@@ -24,11 +24,14 @@ export class MapDocument<V = string> {
   }
 
   public async read() {
-    return this.repository.get<IVersioned<IKeyValues<V>>>(this.tupleKey);
+    const actual = await this.repository.get<IVersioned<IKeyValues<V>>>(
+      this.tupleKey
+    );
+    return this.ensureDocument(actual);
   }
 
   public async edit(modifier: (input: IKeyValues<V>) => IKeyValues<V>) {
-    const doc = this.ensureDocument(await this.read());
+    const doc = await this.read();
     const newDoc = {
       content: modifier(doc.content),
       version: doc.version + 1
@@ -38,7 +41,7 @@ export class MapDocument<V = string> {
   }
 
   public async view<U>(selector: (input: IKeyValues<V>) => U) {
-    return selector(this.ensureDocument(await this.read()).content);
+    return selector((await this.read()).content);
   }
 
   private ensureDocument(

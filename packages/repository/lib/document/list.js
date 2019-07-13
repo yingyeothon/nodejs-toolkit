@@ -30,12 +30,13 @@ class ListDocument {
     }
     read() {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.repository.get(this.tupleKey);
+            const actual = yield this.repository.get(this.tupleKey);
+            return this.ensureDocument(actual);
         });
     }
     edit(modifier) {
         return __awaiter(this, void 0, void 0, function* () {
-            const doc = this.ensureDocument(yield this.read());
+            const doc = yield this.read();
             const newDoc = {
                 content: modifier(doc.content),
                 version: doc.version + 1
@@ -46,7 +47,7 @@ class ListDocument {
     }
     view(selector) {
         return __awaiter(this, void 0, void 0, function* () {
-            return selector(this.ensureDocument(yield this.read()).content);
+            return selector((yield this.read()).content);
         });
     }
     ensureDocument(doc) {

@@ -22,11 +22,14 @@ export class ListDocument<V = string> {
   }
 
   public async read() {
-    return this.repository.get<IVersioned<IValues<V>>>(this.tupleKey);
+    const actual = await this.repository.get<IVersioned<IValues<V>>>(
+      this.tupleKey
+    );
+    return this.ensureDocument(actual);
   }
 
   public async edit(modifier: (input: V[]) => V[]) {
-    const doc = this.ensureDocument(await this.read());
+    const doc = await this.read();
     const newDoc = {
       content: modifier(doc.content),
       version: doc.version + 1
@@ -36,7 +39,7 @@ export class ListDocument<V = string> {
   }
 
   public async view<U>(selector: (input: V[]) => U) {
-    return selector(this.ensureDocument(await this.read()).content);
+    return selector((await this.read()).content);
   }
 
   private ensureDocument(doc: IVersioned<IValues<V>>): IVersioned<IValues<V>> {
