@@ -2,7 +2,6 @@
 
 A bundle of small libraries for [yingyeothon](https://yyt.life)'s infrastructure.
 
-# License
+## License
 
 MIT
-

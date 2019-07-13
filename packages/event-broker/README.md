@@ -35,3 +35,7 @@ new Reader()
 ```
 
 Of course, we don't need to await a result from `fire` method if there is no asynchronous handler.
+
+## License
+
+MIT

@@ -22,5 +22,6 @@
   },
   "scripts": {
     "tsc": "tsc"
-  }
+  },
+  "gitHead": "3db22c35c231d2cd2fe9e06380b2aab50c4edcd7"
 }
