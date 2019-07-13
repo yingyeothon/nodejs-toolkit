@@ -15,6 +15,9 @@
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.3"
   },
+  "publishConfig": {
+    "access": " public"
+  },
   "scripts": {
     "test": "jest",
     "publish": "npm run test && lerna run tsc && lerna publish"
