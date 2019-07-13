@@ -18,9 +18,10 @@
     "lib"
   ],
   "publishConfig": {
-    "access": " public"
+    "access": "public"
   },
   "scripts": {
     "tsc": "tsc"
-  }
+  },
+  "gitHead": "a4e7272ab228603daee62dafc471bc2649730006"
 }
