@@ -1,6 +1,6 @@
 {
   "name": "@yingyeothon/event-broker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simple event broker with asynchronous handlers",
   "keywords": [
     "event"
