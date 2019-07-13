@@ -5,7 +5,7 @@ A simple event broker with asynchronous handlers.
 ## Usage
 
 ```typescript
-import { EventBroker } from "event-broker";
+import { EventBroker } from "@yingyeothonevent-broker";
 
 interface IReaderEventMap {
   read: string;

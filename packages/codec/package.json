@@ -1,15 +1,16 @@
 {
-  "name": "@yingyeothon/event-broker",
+  "name": "@yingyeothon/codec",
   "version": "0.1.0",
-  "description": "Simple event broker with asynchronous handlers",
+  "description": "A stub for codec such as JsonCodec",
   "keywords": [
-    "event"
+    "codec",
+    "json"
   ],
   "author": "jaeyoung.choi <lactrious@gmail.com>",
-  "homepage": "https://toolkit.yyt.life/nodejs/packages/event-broker",
+  "homepage": "https://toolkit.yyt.life/nodejs/packages/codec",
   "license": "MIT",
-  "main": "lib/event-broker.js",
-  "typings": "lib/event-broker.d.ts",
+  "main": "lib/codec.js",
+  "typings": "lib/codec.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -29,6 +30,5 @@
   },
   "bugs": {
     "url": "https://github.com/yingyeothon/nodejs-toolkit/issues"
-  },
-  "gitHead": "a4e7272ab228603daee62dafc471bc2649730006"
+  }
 }
