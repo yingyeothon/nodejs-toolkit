@@ -14,7 +14,7 @@ export class ListDocument<V = string> {
   }
 
   public async deleteIf(filter: (input: V) => boolean) {
-    return this.edit(values => values.filter(filter));
+    return this.edit(values => values.filter(value => !filter(value)));
   }
 
   public async truncate() {

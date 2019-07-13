@@ -20,7 +20,7 @@ class ListDocument {
     }
     deleteIf(filter) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.edit(values => values.filter(filter));
+            return this.edit(values => values.filter(value => !filter(value)));
         });
     }
     truncate() {
