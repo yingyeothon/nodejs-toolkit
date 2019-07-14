@@ -20,6 +20,6 @@
   },
   "scripts": {
     "test": "jest",
-    "publish": "npm run test && lerna run tsc && lerna publish"
+    "publish": "lerna run tsc && npm run test && lerna publish"
   }
 }
