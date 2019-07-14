@@ -7,6 +7,9 @@ export const testRedis = async (
 ) => {
   if (!process.env.TEST_REDIS_PORT || !process.env.TEST_REDIS_HOST) {
     console.log(`No test env: TEST_REDIS_PORT, TEST_REDIS_HOST`);
+
+    // A dummy test to ignore jest errors.
+    test(name, () => expect(true).toEqual(true));
     return;
   }
   const repo = new RedisRepository({
