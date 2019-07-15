@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const actor_system_1 = require("@yingyeothon/actor-system");
+const aws_sdk_1 = require("aws-sdk");
 const defaultLambdaFunctionTimeoutMillis = 14 * 60 * 1000;
 exports.handleActorLambdaEvent = ({ spawn, functionTimeout, logger: maybeLogger }) => (event) => __awaiter(this, void 0, void 0, function* () {
     const logger = maybeLogger || new actor_system_1.ConsoleLogger();
@@ -24,4 +25,14 @@ exports.handleActorLambdaEvent = ({ spawn, functionTimeout, logger: maybeLogger 
     });
     logger.debug(`actor-lambda`, `end-of-handle`, event.actorName);
 });
+exports.shiftToNextLambda = ({ functionName, functionVersion }) => ({ name: actorName }) => new aws_sdk_1.Lambda()
+    .invoke({
+    FunctionName: functionName,
+    InvocationType: "Event",
+    Qualifier: functionVersion || "$LATEST",
+    Payload: JSON.stringify({
+        actorName
+    })
+})
+    .promise();
 //# sourceMappingURL=lambda.js.map
