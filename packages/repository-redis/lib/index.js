@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const IORedis = require("ioredis");
 const codec_1 = require("@yingyeothon/codec");
 const repository_1 = require("@yingyeothon/repository");
+const IORedis = require("ioredis");
 class RedisRepository extends repository_1.SimpleRepository {
     constructor({ redis, prefix, codec } = {}) {
         super();

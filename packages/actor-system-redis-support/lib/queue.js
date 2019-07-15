@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const IORedis = require("ioredis");
 const actor_system_1 = require("@yingyeothon/actor-system");
 const codec_1 = require("@yingyeothon/codec");
+const IORedis = require("ioredis");
 class RedisQueue {
     constructor({ redis, keyPrefix, codec, logger } = {}) {
         this.asRedisKey = (name) => this.keyPrefix + name;

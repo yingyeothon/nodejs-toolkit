@@ -1,6 +1,6 @@
-import * as IORedis from "ioredis";
 import { ICodec } from "@yingyeothon/codec";
-import { SimpleRepository, IExpirableRepository } from "@yingyeothon/repository";
+import { IExpirableRepository, SimpleRepository } from "@yingyeothon/repository";
+import * as IORedis from "ioredis";
 interface IRedisRepositoryArguments {
     redis: IORedis.Redis;
     prefix: string;

@@ -1,7 +1,7 @@
 import { EventBroker } from "@yingyeothon/event-broker";
 import { ILock } from "./lock";
-import { IQueue } from "./queue";
 import { ILogger } from "./logger";
+import { IQueue } from "./queue";
 interface IActorEvent {
     name: string;
 }

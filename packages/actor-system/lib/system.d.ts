@@ -1,7 +1,7 @@
 import { Actor, IActorProcessOptions } from "./actor";
 import { ILock } from "./lock";
-import { IQueue } from "./queue";
 import { ILogger } from "./logger";
+import { IQueue } from "./queue";
 interface IActorSystemArguments {
     queue: IQueue;
     lock: ILock;

@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const aws_sdk_1 = require("aws-sdk");
 const codec_1 = require("@yingyeothon/codec");
 const repository_1 = require("@yingyeothon/repository");
+const aws_sdk_1 = require("aws-sdk");
 class S3Repository extends repository_1.SimpleRepository {
     constructor({ bucketName, s3, prefix, codec }) {
         super();
