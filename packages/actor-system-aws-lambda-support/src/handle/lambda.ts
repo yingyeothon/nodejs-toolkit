@@ -1,5 +1,11 @@
-import { Actor, ConsoleLogger, ILogger } from "@yingyeothon/actor-system";
+import {
+  Actor,
+  ActorShifter,
+  ConsoleLogger,
+  ILogger
+} from "@yingyeothon/actor-system";
 import { Handler } from "aws-lambda";
+import { Lambda } from "aws-sdk";
 import { IActorLambdaEvent } from "./event";
 
 const defaultLambdaFunctionTimeoutMillis = 14 * 60 * 1000;
@@ -35,3 +41,23 @@ export const handleActorLambdaEvent = ({
 
   logger.debug(`actor-lambda`, `end-of-handle`, event.actorName);
 };
+
+interface IShiftToNextLambdaArguments {
+  functionName: string;
+  functionVersion?: string;
+}
+
+export const shiftToNextLambda = ({
+  functionName,
+  functionVersion
+}: IShiftToNextLambdaArguments): ActorShifter => ({ name: actorName }) =>
+  new Lambda()
+    .invoke({
+      FunctionName: functionName,
+      InvocationType: "Event",
+      Qualifier: functionVersion || "$LATEST",
+      Payload: JSON.stringify({
+        actorName
+      } as IActorLambdaEvent)
+    })
+    .promise();
