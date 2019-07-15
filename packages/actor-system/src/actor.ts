@@ -20,6 +20,8 @@ interface IActorEventMap<T> {
   shift: IActorEvent;
 }
 
+export type ActorShifter = (event: IActorEvent) => any | Promise<any>;
+
 export interface IActorProcessOptions {
   /**
    * If an actor runs on a container that has a limitation of lifetime
