@@ -20,21 +20,21 @@ class ActorSystem {
     spawn(actorName) {
         const spawned = this.find(actorName);
         if (spawned) {
-            this.logger.debug(`already-spawned`, actorName);
+            this.logger.debug(`actor-system`, `already-spawned`, actorName);
             return spawned;
         }
-        this.logger.debug(`spawn-new-actor`, actorName);
+        this.logger.debug(`actor-system`, `spawn-new-actor`, actorName);
         const actor = new actor_1.Actor({
             name: actorName,
             queue: this.queue,
             lock: this.lock,
             logger: this.logger
         });
-        this.logger.debug(`post-spawn-msg`, actorName);
+        this.logger.debug(`actor-system`, `post-spawn-msg`, actorName);
         actor.post({
             _control_: "spawn"
         });
-        this.logger.debug(`register-to-actor-map`, actorName);
+        this.logger.debug(`actor-system`, `register-to-actor-map`, actorName);
         this.actors[actorName] = actor;
         return actor;
     }
@@ -42,15 +42,15 @@ class ActorSystem {
         return __awaiter(this, void 0, void 0, function* () {
             const actor = this.find(actorName);
             if (!actor) {
-                this.logger.error(`no-actor`, actorName);
+                this.logger.error(`actor-system`, `no-actor-to-despawn`, actorName);
                 return false;
             }
-            this.logger.debug(`post-despawn-msg`, actorName);
+            this.logger.debug(`actor-system`, `post-despawn-msg`, actorName);
             yield actor.post({
                 _control_: "despawn"
             });
             yield actor.tryToProcess(processOption);
-            this.logger.debug(`delete-from-actor-map`, actorName);
+            this.logger.debug(`actor-system`, `delete-from-actor-map`, actorName);
             delete this.actors[actorName];
             return true;
         });

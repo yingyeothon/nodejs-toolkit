@@ -21,7 +21,7 @@ class Actor extends event_broker_1.EventBroker {
     post(item) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.queue.push(this.name, item);
-            this.logger.debug(`push`, item);
+            this.logger.debug(`actor`, `push`, item);
         });
     }
     tryToProcess({ shiftTimeout } = {}) {
@@ -34,22 +34,22 @@ class Actor extends event_broker_1.EventBroker {
     consumeLoop(isAlive) {
         return __awaiter(this, void 0, void 0, function* () {
             const { name, queue, lock } = this;
-            this.logger.debug(`consume-loop`, name);
+            this.logger.debug(`actor`, `consume-loop`, name);
             while (true) {
-                this.logger.debug(`try-to-lock`, name);
+                this.logger.debug(`actor`, `try-to-lock`, name);
                 if (!(yield lock.tryAcquire(name))) {
-                    this.logger.debug(`cannot-lock`);
+                    this.logger.debug(`actor`, `cannot-lock`, name);
                     break;
                 }
                 yield this.consumeQueueInLock(isAlive);
-                this.logger.debug(`release-lock`, name);
+                this.logger.debug(`actor`, `release-lock`, name);
                 yield lock.release(name);
                 if ((yield queue.size(name)) === 0) {
-                    this.logger.debug(`empty-queue`, name);
+                    this.logger.debug(`actor`, `empty-queue`, name);
                     break;
                 }
                 if (!isAlive()) {
-                    this.logger.debug(`shift-timeout`, name);
+                    this.logger.debug(`actor`, `shift-timeout`, name);
                     yield maybeAwait(this.fire("shift", { name }));
                     break;
                 }
@@ -59,23 +59,23 @@ class Actor extends event_broker_1.EventBroker {
     consumeQueueInLock(isAlive) {
         return __awaiter(this, void 0, void 0, function* () {
             const { queue, name } = this;
-            this.logger.debug(`consume-queue`, name);
+            this.logger.debug(`actor`, `consume-queue`, name);
             while (isAlive() && (yield queue.size(name)) > 0) {
                 const message = yield queue.peek(name);
-                this.logger.debug(`get-message`, name, message);
+                this.logger.debug(`actor`, `get-message`, name, message);
                 if (!message) {
-                    this.logger.debug(`invalid-message`, name, message);
+                    this.logger.debug(`actor`, `invalid-message`, name, message);
                     break;
                 }
                 yield this.processMessage(message);
                 yield queue.pop(name);
-                this.logger.debug(`delete-message`, name);
+                this.logger.debug(`actor`, `delete-message`, name);
             }
         });
     }
     processMessage(message) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.logger.debug(`process-message`, this.name, message);
+            this.logger.debug(`actor`, `process-message`, this.name, message);
             try {
                 if (message[controlKey]) {
                     yield this.processControlMessage(message);
@@ -85,7 +85,7 @@ class Actor extends event_broker_1.EventBroker {
                 }
             }
             catch (error) {
-                this.logger.error(`error`, this.name, message, error);
+                this.logger.error(`actor`, `process-message-error`, this.name, message, error);
                 yield maybeAwait(this.fire("error", error));
             }
         });
@@ -93,7 +93,7 @@ class Actor extends event_broker_1.EventBroker {
     processControlMessage(message) {
         return __awaiter(this, void 0, void 0, function* () {
             const { name } = this;
-            this.logger.debug(`control-message`, name, message);
+            this.logger.debug(`actor`, `process-control-message`, name, message);
             switch (message[controlKey]) {
                 case "spawn":
                     yield maybeAwait(this.fire("spawn", { name }));
@@ -107,7 +107,7 @@ class Actor extends event_broker_1.EventBroker {
     processUserMessage(message) {
         return __awaiter(this, void 0, void 0, function* () {
             const { name } = this;
-            this.logger.debug(`act-message`, name, message);
+            this.logger.debug(`actor`, `process-user-message`, name, message);
             yield maybeAwait(this.fire("act", { name, message }));
         });
     }
