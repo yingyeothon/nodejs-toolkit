@@ -15,6 +15,7 @@ interface IActorEventMap<T> {
     despawn: IActorEvent;
     shift: IActorEvent;
 }
+export declare type ActorShifter = (event: IActorEvent) => any | Promise<any>;
 export interface IActorProcessOptions {
     shiftTimeout?: number;
 }
