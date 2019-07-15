@@ -57,3 +57,7 @@ const listServers = async (): { [ipAddress: string]: IServer } => {
   return versioned.content;
 };
 ```
+
+## License
+
+MIT

@@ -1,4 +1,4 @@
-import { ActorSystem, InMemoryQueue, InMemoryLock, ConsoleLogger } from "..";
+import { ActorSystem, ConsoleLogger, InMemoryLock, InMemoryQueue } from "..";
 
 interface IAdderMessage {
   delta: number;

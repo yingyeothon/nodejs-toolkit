@@ -1,6 +1,6 @@
-import * as IORedis from "ioredis";
-import { IQueue, ILogger, ConsoleLogger } from "@yingyeothon/actor-system";
+import { ConsoleLogger, ILogger, IQueue } from "@yingyeothon/actor-system";
 import { ICodec, JsonCodec } from "@yingyeothon/codec";
+import * as IORedis from "ioredis";
 
 interface IRedisQueueArguments {
   redis?: IORedis.Redis;

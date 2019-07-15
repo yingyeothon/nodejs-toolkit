@@ -79,3 +79,7 @@ const postAdd = async (mod: IModifier) => {
 ```
 
 If a queue and a lock would support distributed, it will be a distributed actor system. But in that situation, `spawn` and `despawn` can be occurred in every container which is disposable and newly creatable so please be careful these messages with `shift` actors.
+
+## License
+
+MIT

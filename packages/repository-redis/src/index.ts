@@ -1,9 +1,9 @@
-import * as IORedis from "ioredis";
 import { ICodec, JsonCodec } from "@yingyeothon/codec";
 import {
-  SimpleRepository,
-  IExpirableRepository
+  IExpirableRepository,
+  SimpleRepository
 } from "@yingyeothon/repository";
+import * as IORedis from "ioredis";
 
 interface IRedisRepositoryArguments {
   redis: IORedis.Redis;

@@ -1,6 +1,6 @@
-import { RedisQueue } from "..";
-import { testRedis } from ".";
 import { ConsoleLogger } from "@yingyeothon/actor-system";
+import { testRedis } from ".";
+import { RedisQueue } from "..";
 
 interface IKeyValue {
   key: string;

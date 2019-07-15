@@ -20,6 +20,7 @@
   },
   "scripts": {
     "test": "jest",
+    "lint": "tslint **/*.ts -t verbose",
     "publish": "lerna run tsc && npm run test && lerna publish"
   }
 }

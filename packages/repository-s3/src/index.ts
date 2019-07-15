@@ -1,6 +1,6 @@
-import { S3 } from "aws-sdk";
 import { ICodec, JsonCodec } from "@yingyeothon/codec";
 import { SimpleRepository } from "@yingyeothon/repository";
+import { S3 } from "aws-sdk";
 
 interface IS3RepositoryArguments {
   bucketName: string;

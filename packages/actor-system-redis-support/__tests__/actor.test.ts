@@ -1,6 +1,6 @@
-import { RedisQueue, RedisLock } from "..";
-import { testRedis } from ".";
 import { ActorSystem, ConsoleLogger } from "@yingyeothon/actor-system";
+import { testRedis } from ".";
+import { RedisLock, RedisQueue } from "..";
 
 interface IAdderMessage {
   delta: number;

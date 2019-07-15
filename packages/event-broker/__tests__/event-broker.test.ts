@@ -6,6 +6,7 @@ interface IBoxEventMap {
   finish: void;
 }
 
+// tslint:disable:max-classes-per-file
 class SyncBox extends EventBroker<IBoxEventMap> {
   public call(error: Error, data: string) {
     if (error) {

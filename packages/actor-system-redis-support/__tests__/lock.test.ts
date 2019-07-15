@@ -1,6 +1,6 @@
 import { ConsoleLogger } from "@yingyeothon/actor-system";
-import { RedisLock } from "..";
 import { testRedis } from ".";
+import { RedisLock } from "..";
 
 testRedis("lock", async redis => {
   const lock = new RedisLock({ redis, logger: new ConsoleLogger("debug") });
