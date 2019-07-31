@@ -1,4 +1,5 @@
-import { ActorSystem, ConsoleLogger } from "@yingyeothon/actor-system";
+import { ActorSystem } from "@yingyeothon/actor-system";
+import { ConsoleLogger } from "@yingyeothon/logger";
 import { testRedis } from ".";
 import { RedisLock, RedisQueue } from "..";
 
