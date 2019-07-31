@@ -1,4 +1,5 @@
-import { ILock, ILogger } from "@yingyeothon/actor-system";
+import { ILock } from "@yingyeothon/actor-system";
+import { ILogger } from "@yingyeothon/logger";
 import * as IORedis from "ioredis";
 interface IRedisLockArguments {
     redis?: IORedis.Redis;
