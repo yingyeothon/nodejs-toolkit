@@ -1,9 +1,5 @@
-import {
-  Actor,
-  ActorShifter,
-  ConsoleLogger,
-  ILogger
-} from "@yingyeothon/actor-system";
+import { Actor, ActorShifter } from "@yingyeothon/actor-system";
+import { ConsoleLogger, ILogger } from "@yingyeothon/logger";
 import { Handler } from "aws-lambda";
 import { Lambda } from "aws-sdk";
 import { IActorLambdaEvent } from "./event";
