@@ -1,6 +1,6 @@
+import { ConsoleLogger, ILogger } from "@yingyeothon/logger";
 import { Actor, IActorProcessOptions } from "./actor";
 import { ILock } from "./lock";
-import { ConsoleLogger, ILogger } from "./logger";
 import { IQueue } from "./queue";
 
 interface IActorSystemArguments {

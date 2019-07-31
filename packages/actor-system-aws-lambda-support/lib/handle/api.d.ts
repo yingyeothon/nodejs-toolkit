@@ -1,4 +1,5 @@
-import { Actor, ILogger } from "@yingyeothon/actor-system";
+import { Actor } from "@yingyeothon/actor-system";
+import { ILogger } from "@yingyeothon/logger";
 import { APIGatewayProxyEvent } from "aws-lambda";
 interface IActorAPIEventHandlerArguments<T> {
     spawn: (apiPath: string, event: APIGatewayProxyEvent) => Actor<T>;

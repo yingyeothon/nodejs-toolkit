@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const actor_system_1 = require("@yingyeothon/actor-system");
 const codec_1 = require("@yingyeothon/codec");
+const logger_1 = require("@yingyeothon/logger");
 const IORedis = require("ioredis");
 class RedisQueue {
     constructor({ redis, keyPrefix, codec, logger } = {}) {
@@ -17,7 +17,7 @@ class RedisQueue {
         this.redis = redis || new IORedis();
         this.keyPrefix = keyPrefix || "queue:";
         this.codec = codec || new codec_1.JsonCodec();
-        this.logger = logger || new actor_system_1.ConsoleLogger();
+        this.logger = logger || new logger_1.ConsoleLogger();
     }
     size(actorName) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -1,4 +1,5 @@
-import { ActorSystem, ConsoleLogger, InMemoryLock, InMemoryQueue } from "..";
+import { ConsoleLogger } from "@yingyeothon/logger";
+import { ActorSystem, InMemoryLock, InMemoryQueue } from "..";
 
 interface IAdderMessage {
   delta: number;

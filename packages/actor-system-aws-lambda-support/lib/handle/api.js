@@ -8,11 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const actor_system_1 = require("@yingyeothon/actor-system");
+const logger_1 = require("@yingyeothon/logger");
 const defaultAPIProxyFunctionTimeoutMillis = 6 * 1000;
 exports.handleActorAPIEvent = ({ spawn, parseMessage: maybeParseMessage, functionTimeout, logger: maybeLogger }) => (event) => __awaiter(this, void 0, void 0, function* () {
     const parseMessage = maybeParseMessage || ((body) => JSON.parse(body));
-    const logger = maybeLogger || new actor_system_1.ConsoleLogger();
+    const logger = maybeLogger || new logger_1.ConsoleLogger();
     logger.debug(`actor-api-handler`, `handle`, event.path, event.body);
     const actor = spawn(event.path, event);
     if (!actor) {

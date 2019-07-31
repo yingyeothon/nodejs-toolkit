@@ -1,4 +1,5 @@
-import { Actor, ConsoleLogger, ILogger } from "@yingyeothon/actor-system";
+import { Actor } from "@yingyeothon/actor-system";
+import { ConsoleLogger, ILogger } from "@yingyeothon/logger";
 import { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda";
 
 const defaultAPIProxyFunctionTimeoutMillis = 6 * 1000;

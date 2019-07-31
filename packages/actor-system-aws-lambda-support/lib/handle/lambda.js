@@ -8,11 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const actor_system_1 = require("@yingyeothon/actor-system");
+const logger_1 = require("@yingyeothon/logger");
 const aws_sdk_1 = require("aws-sdk");
 const defaultLambdaFunctionTimeoutMillis = 14 * 60 * 1000;
 exports.handleActorLambdaEvent = ({ spawn, functionTimeout, logger: maybeLogger }) => (event) => __awaiter(this, void 0, void 0, function* () {
-    const logger = maybeLogger || new actor_system_1.ConsoleLogger();
+    const logger = maybeLogger || new logger_1.ConsoleLogger();
     logger.debug(`actor-lambda`, `handle`, event.actorName);
     const actor = spawn(event.actorName);
     if (!actor) {

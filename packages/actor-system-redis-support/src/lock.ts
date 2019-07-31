@@ -1,4 +1,5 @@
-import { ConsoleLogger, ILock, ILogger } from "@yingyeothon/actor-system";
+import { ILock } from "@yingyeothon/actor-system";
+import { ConsoleLogger, ILogger } from "@yingyeothon/logger";
 import * as IORedis from "ioredis";
 
 interface IRedisLockArguments {

@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const logger_1 = require("@yingyeothon/logger");
 const actor_1 = require("./actor");
-const logger_1 = require("./logger");
 class ActorSystem {
     constructor({ queue, lock, logger }) {
         this.actors = {};
