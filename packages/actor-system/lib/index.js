@@ -5,7 +5,6 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./queue"));
 __export(require("./lock"));
-__export(require("./logger"));
 __export(require("./actor"));
 __export(require("./system"));
 //# sourceMappingURL=index.js.map
