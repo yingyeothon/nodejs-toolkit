@@ -17,17 +17,18 @@ import {
 
 const sys = new ActorSystem(/* constructors */);
 const spawn = (name: string) =>
-  sys
-    .spawn<IMessage>()
-    .on("act", async message => {
-      /* message handler */
-    })
-    .on(
-      "shift",
-      shiftToNextLambda({
-        functionName: process.env.BOTTOM_HALF_LAMBDA
+  sys.spawn<IMessage>("my-actor", newActor =>
+    newActor
+      .on("act", async message => {
+        /* message handler */
       })
-    );
+      .on(
+        "shift",
+        shiftToNextLambda({
+          functionName: process.env.BOTTOM_HALF_LAMBDA
+        })
+      )
+  );
 
 // To receive a message via API Gateway
 // and process it as possible as it can like top-half.
