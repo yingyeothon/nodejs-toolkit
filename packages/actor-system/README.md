@@ -27,24 +27,25 @@ interface IContext {
 
 const context: { [actorName: string]: IContext } = {};
 
-const adder = sys
-  .spawn<IModifier>("adder-1")
-  .on("spawn", ({ name }) => {
-    context[name] = { value: 0 };
-  })
-  .on("act", ({ name, message: { action, value } }) => {
-    switch (action) {
-      case "set":
-        context[name].value = value;
-        break;
-      case "add":
-        context[name].value += value;
-        break;
-    }
-  })
-  .on("despawn", ({ name }) => {
-    delete context[name];
-  });
+const adder = sys.spawn<IModifier>("adder-1", newActor =>
+  newActor
+    .on("spawn", ({ name }) => {
+      context[name] = { value: 0 };
+    })
+    .on("act", ({ name, message: { action, value } }) => {
+      switch (action) {
+        case "set":
+          context[name].value = value;
+          break;
+        case "add":
+          context[name].value += value;
+          break;
+      }
+    })
+    .on("despawn", ({ name }) => {
+      delete context[name];
+    })
+);
 
 const postAdd = async (mod: IModifier) => {
   await adder.post(mod);
@@ -64,11 +65,11 @@ sys.despawn(adder.name);
 Preventing to be a victim, it supports a `shiftTimeout` when processing messages from a queue. If a timeout occurred while executing `tryToProcess`, it gives up to process and occurs `shift` event. It is useful to use in a container which has a limited lifetime such as AWS Lambda.
 
 ```typescript
-const adder = sys
-  .spawn<IModifier>("disposable-adder")
-  .on("shift", ({ name }) => {
+const adder = sys.spawn<IModifier>("disposable-adder", newActor =>
+  newActor.on("shift", ({ name }) => {
     // Invoke new AWS Lambda for this actor.
-  });
+  })
+);
 
 const postAdd = async (mod: IModifier) => {
   await adder.post(mod);

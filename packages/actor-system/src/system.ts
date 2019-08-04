@@ -22,7 +22,10 @@ export class ActorSystem {
     this.logger = logger || new ConsoleLogger();
   }
 
-  public spawn<T>(actorName: string) {
+  public spawn<T>(
+    actorName: string,
+    decorateIfAbsent: (newActor: Actor<T>) => Actor<T> = newActor => newActor
+  ) {
     const spawned = this.find<T>(actorName);
     if (spawned) {
       this.logger.debug(`actor-system`, `already-spawned`, actorName);
@@ -44,7 +47,7 @@ export class ActorSystem {
 
     this.logger.debug(`actor-system`, `register-to-actor-map`, actorName);
     this.actors[actorName] = actor;
-    return actor;
+    return decorateIfAbsent(actor);
   }
 
   public async despawn<T>(

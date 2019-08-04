@@ -20,17 +20,18 @@ test("adder-simple", async () => {
     lock: new InMemoryLock(),
     logger: new ConsoleLogger("debug")
   });
-  const actor = sys
-    .spawn<IAdderMessage>("adder")
-    .on("spawn", () => {
-      ctx.state = "spawned";
-    })
-    .on("act", ({ message }) => {
-      ctx.value += message.delta;
-    })
-    .on("despawn", () => {
-      ctx.state = "despawned";
-    });
+  const actor = sys.spawn<IAdderMessage>("adder", newActor =>
+    newActor
+      .on("spawn", () => {
+        ctx.state = "spawned";
+      })
+      .on("act", ({ message }) => {
+        ctx.value += message.delta;
+      })
+      .on("despawn", () => {
+        ctx.state = "despawned";
+      })
+  );
 
   expect(ctx.state).toBeUndefined();
   expect(ctx.value).toEqual(0);

@@ -26,21 +26,22 @@ test("adder-shift", async () => {
 
   let shiftCount = 0;
   const ttl = 50;
-  const actor = sys
-    .spawn<IAdderMessage>("adder")
-    .on("spawn", () => {
-      ctx.state = "spawned";
-    })
-    .on("act", async ({ message }) => {
-      ctx.value += message.delta;
-      await sleep(ttl + 1);
-    })
-    .on("despawn", () => {
-      ctx.state = "despawned";
-    })
-    .on("shift", () => {
-      ++shiftCount;
-    });
+  const actor = sys.spawn<IAdderMessage>("adder", newActor =>
+    newActor
+      .on("spawn", () => {
+        ctx.state = "spawned";
+      })
+      .on("act", async ({ message }) => {
+        ctx.value += message.delta;
+        await sleep(ttl + 1);
+      })
+      .on("despawn", () => {
+        ctx.state = "despawned";
+      })
+      .on("shift", () => {
+        ++shiftCount;
+      })
+  );
 
   expect(ctx.state).toBeUndefined();
   expect(ctx.value).toEqual(0);
