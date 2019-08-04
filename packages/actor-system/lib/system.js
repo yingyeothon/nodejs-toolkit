@@ -17,7 +17,7 @@ class ActorSystem {
         this.lock = lock;
         this.logger = logger || new logger_1.ConsoleLogger();
     }
-    spawn(actorName) {
+    spawn(actorName, decorateIfAbsent = newActor => newActor) {
         const spawned = this.find(actorName);
         if (spawned) {
             this.logger.debug(`actor-system`, `already-spawned`, actorName);
@@ -36,7 +36,7 @@ class ActorSystem {
         });
         this.logger.debug(`actor-system`, `register-to-actor-map`, actorName);
         this.actors[actorName] = actor;
-        return actor;
+        return decorateIfAbsent(actor);
     }
     despawn(actorName, processOption = {}) {
         return __awaiter(this, void 0, void 0, function* () {

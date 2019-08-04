@@ -13,7 +13,7 @@ export declare class ActorSystem {
     private readonly lock;
     private readonly logger;
     constructor({ queue, lock, logger }: IActorSystemArguments);
-    spawn<T>(actorName: string): Actor<T>;
+    spawn<T>(actorName: string, decorateIfAbsent?: (newActor: Actor<T>) => Actor<T>): Actor<T>;
     despawn<T>(actorName: string, processOption?: IActorProcessOptions): Promise<boolean>;
     find<T = any>(actorName: string): Actor<T> | null;
 }
