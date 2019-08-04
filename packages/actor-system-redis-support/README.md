@@ -29,9 +29,8 @@ interface IState {
 
 // Keep a state using Redis.
 const repo = new RedisRepository({ redis, prefix: "adder:" });
-const adder = sys
-  .spawn<IModifier>("adder-1")
-  .on("act", async ({ name, message: { action, value } }) => {
+const adder = sys.spawn<IModifier>("adder-1", newActor =>
+  newActor.on("act", async ({ name, message: { action, value } }) => {
     // Load a state from Redis.
     const state = await repo.get<IState>(name);
     switch (action) {
@@ -44,7 +43,8 @@ const adder = sys
     }
     // Store the updated context to Redis after acted.
     await repo.set(name, state);
-  });
+  })
+);
 
 const postAdd = async (mod: IModifier) => {
   await adder.post(mod);
@@ -62,32 +62,33 @@ We can think it is too tough that loads and stores a state from Redis in everyti
 
 ```typescript
 const states: { [actorName: string]: IState } = {};
-const adder = sys
-  .spawn<IModifier>("adder-1")
-  .on("spawn", async ({ name }) => {
-    // Load a state from Redis and cache it into the in-memory cache.
-    // There is no splitted-brain among distributed instances because
-    // the actor-system ensures there is the only one actor instance.
-    states[name] = await repo.get<IState>(name);
-  })
-  .on("act", async ({ name, message: { action, value } }) => {
-    const state = states[name];
-    switch (action) {
-      case "set":
-        state.value = value;
-        break;
-      case "add":
-        state.value += value;
-        break;
-    }
-  })
-  .on("despawn", async ({ name }) => {
-    // Store a state to Redis and delete it from the in-memory cache.
-    // To store properly, it should be despawned properly via the system object
-    // and please be careful any messages received after despawned would be ignored.
-    await repo.set(name, states[name]);
-    delete states[name];
-  });
+const adder = sys.spawn<IModifier>("adder-1", newActor =>
+  newActor
+    .on("spawn", async ({ name }) => {
+      // Load a state from Redis and cache it into the in-memory cache.
+      // There is no splitted-brain among distributed instances because
+      // the actor-system ensures there is the only one actor instance.
+      states[name] = await repo.get<IState>(name);
+    })
+    .on("act", async ({ name, message: { action, value } }) => {
+      const state = states[name];
+      switch (action) {
+        case "set":
+          state.value = value;
+          break;
+        case "add":
+          state.value += value;
+          break;
+      }
+    })
+    .on("despawn", async ({ name }) => {
+      // Store a state to Redis and delete it from the in-memory cache.
+      // To store properly, it should be despawned properly via the system object
+      // and please be careful any messages received after despawned would be ignored.
+      await repo.set(name, states[name]);
+      delete states[name];
+    })
+);
 ```
 
 The simple scenario that can accept this model is,

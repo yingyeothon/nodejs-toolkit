@@ -23,17 +23,18 @@ testRedis("simple-actor", async redis => {
     lock: new RedisLock({ redis, logger }),
     logger
   });
-  const actor = sys
-    .spawn<IAdderMessage>("adder")
-    .on("spawn", () => {
-      ctx.state = "spawned";
-    })
-    .on("act", ({ message }) => {
-      ctx.value += message.delta;
-    })
-    .on("despawn", () => {
-      ctx.state = "despawned";
-    });
+  const actor = sys.spawn<IAdderMessage>("adder", newActor =>
+    newActor
+      .on("spawn", () => {
+        ctx.state = "spawned";
+      })
+      .on("act", ({ message }) => {
+        ctx.value += message.delta;
+      })
+      .on("despawn", () => {
+        ctx.state = "despawned";
+      })
+  );
 
   expect(ctx.state).toBeUndefined();
   expect(ctx.value).toEqual(0);
