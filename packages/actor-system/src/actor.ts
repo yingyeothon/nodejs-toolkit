@@ -74,6 +74,16 @@ export class Actor<T> extends EventBroker<IActorEventMap<T>> {
     await this.consumeLoop(isAlive);
   }
 
+  /**
+   * `post` + `tryToProcess`.
+   * @param item
+   * @param options
+   */
+  public async send(item: T, options: IActorProcessOptions = {}) {
+    await this.post(item);
+    await this.tryToProcess(options);
+  }
+
   private async consumeLoop(isAlive: () => boolean) {
     const { name, queue, lock } = this;
 
