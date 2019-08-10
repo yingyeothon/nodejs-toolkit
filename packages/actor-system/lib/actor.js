@@ -31,6 +31,12 @@ class Actor extends event_broker_1.EventBroker {
             yield this.consumeLoop(isAlive);
         });
     }
+    send(item, options = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.post(item);
+            yield this.tryToProcess(options);
+        });
+    }
     consumeLoop(isAlive) {
         return __awaiter(this, void 0, void 0, function* () {
             const { name, queue, lock } = this;

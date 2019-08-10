@@ -37,6 +37,7 @@ export declare class Actor<T> extends EventBroker<IActorEventMap<T>> {
     constructor({ name, queue, lock, logger }: IActorArguments);
     post(item: T | IActorControlMessage): Promise<void>;
     tryToProcess({ shiftTimeout }?: IActorProcessOptions): Promise<void>;
+    send(item: T, options?: IActorProcessOptions): Promise<void>;
     private consumeLoop;
     private consumeQueueInLock;
     private processMessage;
