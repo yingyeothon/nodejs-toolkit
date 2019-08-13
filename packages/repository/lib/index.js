@@ -4,5 +4,6 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./repository"));
+__export(require("./memory"));
 __export(require("./document"));
 //# sourceMappingURL=index.js.map
