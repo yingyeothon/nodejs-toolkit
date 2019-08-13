@@ -1,46 +1,4 @@
-import { IExpirableRepository, IRepository, SimpleRepository } from "..";
-
-interface IExpirableDocument {
-  expired?: number;
-  value: any;
-}
-
-class InMemoryRepository extends SimpleRepository
-  implements IExpirableRepository {
-  private readonly store: { [key: string]: IExpirableDocument } = {};
-
-  public async get<T>(key: string) {
-    const doc = this.store[key];
-    if (!doc) {
-      return null;
-    }
-    if (doc.expired > 0 && doc.expired < Date.now()) {
-      return null;
-    }
-    return doc.value as T;
-  }
-
-  public async set<T>(key: string, value: T) {
-    this.store[key] = {
-      value
-    };
-  }
-
-  public async delete(key: string) {
-    delete this.store[key];
-  }
-
-  public async setWithExpire<T>(
-    key: string,
-    value: T,
-    expiresInMillis: number
-  ) {
-    this.store[key] = {
-      expired: expiresInMillis > 0 ? Date.now() + expiresInMillis : 0,
-      value
-    };
-  }
-}
+import { IExpirableRepository, InMemoryRepository, IRepository } from "..";
 
 test("get-after-set", async () => {
   const mem: IRepository = new InMemoryRepository();
