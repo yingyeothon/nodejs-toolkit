@@ -10,29 +10,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const logger_1 = require("@yingyeothon/logger");
 const aws_sdk_1 = require("aws-sdk");
+const time_1 = require("./time");
 const defaultLambdaFunctionTimeoutMillis = 14 * 60 * 1000;
-exports.handleActorLambdaEvent = ({ spawn, functionTimeout, logger: maybeLogger }) => (event) => __awaiter(this, void 0, void 0, function* () {
+exports.handleActorLambdaEvent = ({ spawn, functionTimeout = defaultLambdaFunctionTimeoutMillis, logger: maybeLogger }) => (event) => __awaiter(this, void 0, void 0, function* () {
+    time_1.globalTimeline.reset(functionTimeout);
     const logger = maybeLogger || new logger_1.ConsoleLogger();
-    logger.debug(`actor-lambda`, `handle`, event.actorName);
-    const actor = spawn(event.actorName);
+    logger.debug(`actor-lambda`, `handle`, event);
+    const actor = spawn(event);
     if (!actor) {
-        throw new Error(`No actor [${event.actorName}]`);
+        throw new Error(`No actor [${event}]`);
     }
     yield actor.tryToProcess({
-        shiftTimeout: functionTimeout !== undefined
-            ? functionTimeout
-            : defaultLambdaFunctionTimeoutMillis
+        shiftTimeout: time_1.globalTimeline.remainMillis
     });
-    logger.debug(`actor-lambda`, `end-of-handle`, event.actorName);
+    logger.debug(`actor-lambda`, `end-of-handle`, event);
 });
-exports.shiftToNextLambda = ({ functionName, functionVersion }) => ({ name: actorName }) => new aws_sdk_1.Lambda()
+exports.shiftToNextLambda = ({ functionName, functionVersion, buildPayload = actorName => ({ actorName }) }) => ({ name: actorName }) => new aws_sdk_1.Lambda()
     .invoke({
     FunctionName: functionName,
     InvocationType: "Event",
     Qualifier: functionVersion || "$LATEST",
-    Payload: JSON.stringify({
-        actorName
-    })
+    Payload: JSON.stringify(buildPayload(actorName))
 })
     .promise();
 //# sourceMappingURL=lambda.js.map
