@@ -17,6 +17,8 @@ interface IActorEventMap<T> {
 
   spawn: IActorEvent;
   despawn: IActorEvent;
+  beforeAct: IActorEvent;
+  afterAct: IActorEvent;
   shift: IActorEvent;
 }
 
@@ -44,7 +46,7 @@ interface IActorArguments {
 const controlKey = "_control_";
 
 interface IActorControlMessage {
-  [controlKey]: "spawn" | "despawn";
+  [controlKey]: "spawn" | "despawn" | "beforeAct" | "afterAct";
 }
 
 export class Actor<T> extends EventBroker<IActorEventMap<T>> {
@@ -97,7 +99,9 @@ export class Actor<T> extends EventBroker<IActorEventMap<T>> {
       }
 
       // Consume messages in the queue if locked.
+      await this.processMessage({ _control_: "beforeAct" });
       await this.consumeQueueInLock(isAlive);
+      await this.processMessage({ _control_: "afterAct" });
 
       // Whatever its reason, release the lock.
       this.logger.debug(`actor`, `release-lock`, name);
