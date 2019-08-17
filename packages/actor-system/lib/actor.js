@@ -102,14 +102,7 @@ class Actor extends event_broker_1.EventBroker {
         return __awaiter(this, void 0, void 0, function* () {
             const { name } = this;
             this.logger.debug(`actor`, `process-control-message`, name, message);
-            switch (message[controlKey]) {
-                case "spawn":
-                    yield maybeAwait(this.fire("spawn", { name }));
-                    break;
-                case "despawn":
-                    yield maybeAwait(this.fire("despawn", { name }));
-                    break;
-            }
+            yield maybeAwait(this.fire(message[controlKey], { name }));
         });
     }
     processUserMessage(message) {
