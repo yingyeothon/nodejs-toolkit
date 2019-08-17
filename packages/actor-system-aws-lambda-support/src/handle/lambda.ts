@@ -3,57 +3,54 @@ import { ConsoleLogger, ILogger } from "@yingyeothon/logger";
 import { Handler } from "aws-lambda";
 import { Lambda } from "aws-sdk";
 import { IActorLambdaEvent } from "./event";
+import { globalTimeline } from "./time";
 
 const defaultLambdaFunctionTimeoutMillis = 14 * 60 * 1000;
 
-interface IActorLambdaHandlerArguments {
-  spawn: (actorName: string) => Actor<any>;
+interface IActorLambdaHandlerArguments<P> {
+  spawn: (event: P) => Actor<any>;
   functionTimeout?: number;
   logger?: ILogger;
 }
 
-export const handleActorLambdaEvent = ({
+export const handleActorLambdaEvent = <P = IActorLambdaEvent>({
   spawn,
-  functionTimeout,
+  functionTimeout = defaultLambdaFunctionTimeoutMillis,
   logger: maybeLogger
-}: IActorLambdaHandlerArguments): Handler<
-  IActorLambdaEvent,
-  void
-> => async event => {
-  const logger = maybeLogger || new ConsoleLogger();
-  logger.debug(`actor-lambda`, `handle`, event.actorName);
+}: IActorLambdaHandlerArguments<P>): Handler<P, void> => async event => {
+  globalTimeline.reset(functionTimeout);
 
-  const actor = spawn(event.actorName);
+  const logger = maybeLogger || new ConsoleLogger();
+  logger.debug(`actor-lambda`, `handle`, event);
+
+  const actor = spawn(event);
   if (!actor) {
-    throw new Error(`No actor [${event.actorName}]`);
+    throw new Error(`No actor [${event}]`);
   }
 
   await actor.tryToProcess({
-    shiftTimeout:
-      functionTimeout !== undefined
-        ? functionTimeout
-        : defaultLambdaFunctionTimeoutMillis
+    shiftTimeout: globalTimeline.remainMillis
   });
 
-  logger.debug(`actor-lambda`, `end-of-handle`, event.actorName);
+  logger.debug(`actor-lambda`, `end-of-handle`, event);
 };
 
-interface IShiftToNextLambdaArguments {
+interface IShiftToNextLambdaArguments<P> {
   functionName: string;
   functionVersion?: string;
+  buildPayload?: (actorName: string) => P;
 }
 
-export const shiftToNextLambda = ({
+export const shiftToNextLambda = <P = IActorLambdaEvent>({
   functionName,
-  functionVersion
-}: IShiftToNextLambdaArguments): ActorShifter => ({ name: actorName }) =>
+  functionVersion,
+  buildPayload = actorName => ({ actorName } as any)
+}: IShiftToNextLambdaArguments<P>): ActorShifter => ({ name: actorName }) =>
   new Lambda()
     .invoke({
       FunctionName: functionName,
       InvocationType: "Event",
       Qualifier: functionVersion || "$LATEST",
-      Payload: JSON.stringify({
-        actorName
-      } as IActorLambdaEvent)
+      Payload: JSON.stringify(buildPayload(actorName))
     })
     .promise();
