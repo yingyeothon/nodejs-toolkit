@@ -176,14 +176,7 @@ export class Actor<T> extends EventBroker<IActorEventMap<T>> {
   private async processControlMessage(message: IActorControlMessage) {
     const { name } = this;
     this.logger.debug(`actor`, `process-control-message`, name, message);
-    switch (message[controlKey]) {
-      case "spawn":
-        await maybeAwait(this.fire("spawn", { name }));
-        break;
-      case "despawn":
-        await maybeAwait(this.fire("despawn", { name }));
-        break;
-    }
+    await maybeAwait(this.fire(message[controlKey], { name }));
   }
 
   private async processUserMessage(message: T) {
