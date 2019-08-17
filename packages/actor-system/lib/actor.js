@@ -47,7 +47,9 @@ class Actor extends event_broker_1.EventBroker {
                     this.logger.debug(`actor`, `cannot-lock`, name);
                     break;
                 }
+                yield this.processMessage({ _control_: "beforeAct" });
                 yield this.consumeQueueInLock(isAlive);
+                yield this.processMessage({ _control_: "afterAct" });
                 this.logger.debug(`actor`, `release-lock`, name);
                 yield lock.release(name);
                 if ((yield queue.size(name)) === 0) {

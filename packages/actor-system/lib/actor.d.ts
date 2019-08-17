@@ -13,6 +13,8 @@ interface IActorEventMap<T> {
     error: Error;
     spawn: IActorEvent;
     despawn: IActorEvent;
+    beforeAct: IActorEvent;
+    afterAct: IActorEvent;
     shift: IActorEvent;
 }
 export declare type ActorShifter = (event: IActorEvent) => any | Promise<any>;
@@ -27,7 +29,7 @@ interface IActorArguments {
 }
 declare const controlKey = "_control_";
 interface IActorControlMessage {
-    [controlKey]: "spawn" | "despawn";
+    [controlKey]: "spawn" | "despawn" | "beforeAct" | "afterAct";
 }
 export declare class Actor<T> extends EventBroker<IActorEventMap<T>> {
     readonly name: string;
