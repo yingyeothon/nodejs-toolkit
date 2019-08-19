@@ -63,13 +63,11 @@ class S3Repository extends repository_1.SimpleRepository {
         });
     }
     withPrefix(prefix) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new S3Repository({
-                bucketName: this.bucketName,
-                s3: this.s3,
-                prefix,
-                codec: this.codec
-            });
+        return new S3Repository({
+            bucketName: this.bucketName,
+            s3: this.s3,
+            prefix,
+            codec: this.codec
         });
     }
     asS3Key(key) {

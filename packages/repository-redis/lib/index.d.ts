@@ -15,7 +15,7 @@ export declare class RedisRepository extends SimpleRepository implements IExpira
     set<T>(key: string, value: T): Promise<void>;
     setWithExpire<T>(key: string, value: T, expiresInMillis: number): Promise<void>;
     delete(key: string): Promise<void>;
-    withPrefix(prefix: string): Promise<RedisRepository>;
+    withPrefix(prefix: string): RedisRepository;
     private asRedisKey;
 }
 export {};

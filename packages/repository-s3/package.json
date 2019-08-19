@@ -1,6 +1,6 @@
 {
   "name": "@yingyeothon/repository-s3",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "A repository implementation using AWS S3",
   "keywords": [
     "s3"
@@ -35,6 +35,6 @@
   },
   "dependencies": {
     "@yingyeothon/codec": "^0.1.0",
-    "@yingyeothon/repository": "^0.1.2"
+    "@yingyeothon/repository": "^0.1.3"
   }
 }

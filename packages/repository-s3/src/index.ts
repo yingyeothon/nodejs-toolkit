@@ -63,7 +63,7 @@ export class S3Repository extends SimpleRepository {
       .promise();
   }
 
-  public async withPrefix(prefix: string) {
+  public withPrefix(prefix: string) {
     return new S3Repository({
       bucketName: this.bucketName,
       s3: this.s3,

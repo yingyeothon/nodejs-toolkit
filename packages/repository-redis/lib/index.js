@@ -60,12 +60,10 @@ class RedisRepository extends repository_1.SimpleRepository {
         });
     }
     withPrefix(prefix) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new RedisRepository({
-                redis: this.redis,
-                prefix,
-                codec: this.codec
-            });
+        return new RedisRepository({
+            redis: this.redis,
+            prefix,
+            codec: this.codec
         });
     }
     asRedisKey(key) {

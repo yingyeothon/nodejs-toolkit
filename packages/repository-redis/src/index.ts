@@ -70,7 +70,7 @@ export class RedisRepository extends SimpleRepository
     await this.redis.del(this.asRedisKey(key));
   }
 
-  public async withPrefix(prefix: string) {
+  public withPrefix(prefix: string) {
     return new RedisRepository({
       redis: this.redis,
       prefix,

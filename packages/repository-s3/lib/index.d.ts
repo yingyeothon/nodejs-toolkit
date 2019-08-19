@@ -16,7 +16,7 @@ export declare class S3Repository extends SimpleRepository {
     get<T>(key: string): Promise<T>;
     set<T>(key: string, value: T): Promise<void>;
     delete(key: string): Promise<void>;
-    withPrefix(prefix: string): Promise<S3Repository>;
+    withPrefix(prefix: string): S3Repository;
     private asS3Key;
 }
 export {};
