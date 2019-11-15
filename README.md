@@ -58,7 +58,7 @@ If a package would reference other packages,
 - Check if it passes all tests we write.
 - Check the version of this package.
 - `npm publish` If you want to deploy it as alone.
-- Or `npm run publish` on **its root directory** if you want to deploy all of these packages with above processes such as building, testing and publishing.
+- Or `npm run deploy` on **its root directory** if you want to deploy all of these packages with above processes such as building, testing and publishing.
 
 ## License
 

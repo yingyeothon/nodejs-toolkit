@@ -8,7 +8,7 @@
     "@types/jest": "^24.0.15",
     "@types/node": "^10.14.12",
     "jest": "^24.8.0",
-    "lerna": "^3.15.0",
+    "lerna": "^3.18.4",
     "prettier": "^1.18.2",
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
@@ -21,6 +21,7 @@
   "scripts": {
     "test": "jest",
     "lint": "tslint **/*.ts -t verbose",
-    "publish": "lerna run tsc && npm run test && lerna publish"
+    "prepublishOnly": "lerna run tsc && npm run test",
+    "deploy": "lerna publish"
   }
 }
