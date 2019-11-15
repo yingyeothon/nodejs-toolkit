@@ -1,6 +1,6 @@
 {
   "name": "@yingyeothon/actor-system-aws-lambda-support",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "AWS Lambda support for actor system such as simple handler and lambda invoker.",
   "keywords": [
     "aws",
@@ -33,8 +33,8 @@
     "url": "https://github.com/yingyeothon/nodejs-toolkit/issues"
   },
   "dependencies": {
-    "@yingyeothon/actor-system": "^0.1.8",
-    "@yingyeothon/logger": "^0.1.0"
+    "@yingyeothon/actor-system": "^0.2.0",
+    "@yingyeothon/logger": "^0.2.0"
   },
   "optionalDependencies": {
     "aws-sdk": "2.437.0"
