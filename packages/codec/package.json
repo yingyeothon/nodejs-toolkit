@@ -26,7 +26,9 @@
     "url": "git+https://github.com/yingyeothon/nodejs-toolkit.git"
   },
   "scripts": {
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "build": "../../node_modules/.bin/tsc",
+    "test": "../../node_modules/.bin/jest --runInBand --detectOpenHandles"
   },
   "bugs": {
     "url": "https://github.com/yingyeothon/nodejs-toolkit/issues"
