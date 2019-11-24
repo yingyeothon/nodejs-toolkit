@@ -6,7 +6,7 @@
     "event"
   ],
   "author": "jaeyoung.choi <lactrious@gmail.com>",
-  "homepage": "https://toolkit.yyt.life/nodejs/packages/event-broker",
+  "homepage": "https://github.com/yingyeothon/nodejs-toolkit/tree/master/packages/event-broker",
   "license": "MIT",
   "main": "lib/event-broker.js",
   "typings": "lib/event-broker.d.ts",

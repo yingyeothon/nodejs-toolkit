@@ -8,7 +8,7 @@ interface IBoxEventMap {
 
 // tslint:disable:max-classes-per-file
 class SyncBox extends EventBroker<IBoxEventMap> {
-  public call(error: Error, data: string) {
+  public call(error: Error | null, data: string | null) {
     if (error) {
       this.fire("error", error);
     }
@@ -20,7 +20,7 @@ class SyncBox extends EventBroker<IBoxEventMap> {
 }
 
 class AsyncBox extends EventBroker<IBoxEventMap> {
-  public async call(error: Error, data: string) {
+  public async call(error: Error | null, data: string | null) {
     if (error) {
       await this.fire("error", error);
     }

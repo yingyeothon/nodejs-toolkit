@@ -7,7 +7,7 @@
     "json"
   ],
   "author": "jaeyoung.choi <lactrious@gmail.com>",
-  "homepage": "https://toolkit.yyt.life/nodejs/packages/codec",
+  "homepage": "https://github.com/yingyeothon/nodejs-toolkit/tree/master/packages/codec",
   "license": "MIT",
   "main": "lib/codec.js",
   "typings": "lib/codec.d.ts",

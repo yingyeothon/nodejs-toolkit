@@ -9,11 +9,11 @@ class JsonCodec {
     }
     decode(value) {
         if (value === undefined) {
-            return undefined;
+            throw new Error(`Value cannot be undefined`);
         }
         return JSON.parse(value);
     }
 }
-JsonCodec.Undefined = "undefined";
 exports.JsonCodec = JsonCodec;
+JsonCodec.Undefined = "undefined";
 //# sourceMappingURL=codec.js.map

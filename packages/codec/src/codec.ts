@@ -14,7 +14,7 @@ export class JsonCodec implements ICodec<string> {
   }
   public decode<T>(value: string) {
     if (value === undefined) {
-      return undefined;
+      throw new Error(`Value cannot be undefined`);
     }
     return JSON.parse(value) as T;
   }
