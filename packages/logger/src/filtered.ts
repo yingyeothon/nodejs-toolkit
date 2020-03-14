@@ -1,9 +1,11 @@
-import { ILogger, ILogWriter, LogSeverity } from "./logger";
+import ILogger from "./logger";
+import LogSeverity from "./severity";
+import ILogWriter from "./writer";
 
-const filteredLogger = (
+function filteredLogger(
   severity: LogSeverity,
   callback: (...args: any[]) => void
-) => {
+) {
   const thisLevel = asLevel(severity);
   return (configuredSeverity: LogSeverity, ...args: any[]) => {
     const configuredLevel = asLevel(configuredSeverity);
@@ -11,9 +13,9 @@ const filteredLogger = (
       callback(...args);
     }
   };
-};
+}
 
-const asLevel = (severity: LogSeverity) => {
+function asLevel(severity: LogSeverity) {
   switch (severity) {
     case "debug":
       return 100;
@@ -23,9 +25,9 @@ const asLevel = (severity: LogSeverity) => {
       return 900;
   }
   return 0;
-};
+}
 
-export class FilteredLogger implements ILogger {
+export default class FilteredLogger implements ILogger {
   constructor(
     public severity: LogSeverity,
     private readonly writer: ILogWriter
