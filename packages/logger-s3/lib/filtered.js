@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function filteredLogger(severity, callback) {
+const filteredLogger = (severity, callback) => {
     const thisLevel = asLevel(severity);
     return (configuredSeverity, ...args) => {
         const configuredLevel = asLevel(configuredSeverity);
@@ -8,8 +8,8 @@ function filteredLogger(severity, callback) {
             callback(...args);
         }
     };
-}
-function asLevel(severity) {
+};
+const asLevel = (severity) => {
     switch (severity) {
         case "debug":
             return 100;
@@ -19,7 +19,7 @@ function asLevel(severity) {
             return 900;
     }
     return 0;
-}
+};
 class FilteredLogger {
     constructor(severity, writer) {
         this.severity = severity;
@@ -29,5 +29,5 @@ class FilteredLogger {
         this.error = (...args) => filteredLogger("error", this.writer.error)(this.severity, ...args);
     }
 }
-exports.default = FilteredLogger;
+exports.FilteredLogger = FilteredLogger;
 //# sourceMappingURL=filtered.js.map

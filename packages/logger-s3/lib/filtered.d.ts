@@ -1,7 +1,5 @@
-import ILogger from "./logger";
-import LogSeverity from "./severity";
-import ILogWriter from "./writer";
-export default class FilteredLogger implements ILogger {
+import { ILogger, ILogWriter, LogSeverity } from "./logger";
+export declare class FilteredLogger implements ILogger {
     severity: LogSeverity;
     private readonly writer;
     constructor(severity: LogSeverity, writer: ILogWriter);
