@@ -1,23 +1,21 @@
-import combine from "@yingyeothon/logger/lib/combine";
-import consoleWriter from "@yingyeothon/logger/lib/console/writer";
 import FilteredLogger from "@yingyeothon/logger/lib/filtered";
-import nullLogger from "@yingyeothon/logger/lib/null";
+import ILogger from "@yingyeothon/logger/lib/logger";
 import LogSeverity from "@yingyeothon/logger/lib/severity";
 import S3LogWriter, { S3LogWriterEnv } from "./writer";
 
-type S3LoggerEnv = S3LogWriterEnv & {
+export type S3LoggerEnv = S3LogWriterEnv & {
   severity?: LogSeverity;
-  withConsole?: boolean;
 };
 
-export default function S3Logger(env: S3LoggerEnv) {
+export interface IS3Logger {
+  logger: ILogger;
+  flush: () => Promise<any>;
+}
+
+export default function S3Logger(env: S3LoggerEnv): IS3Logger {
   const s3Writer = S3LogWriter(env);
-  const writer = combine(
-    s3Writer,
-    env.withConsole ? consoleWriter : nullLogger
-  );
   return {
-    logger: new FilteredLogger(env.severity ?? "info", writer),
+    logger: new FilteredLogger(env.severity ?? "info", s3Writer),
     flush: s3Writer.flush
   };
 }

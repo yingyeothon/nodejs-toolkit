@@ -87,6 +87,74 @@ async function main() {
 }
 ```
 
+### AWS Lambda Helper
+
+It will append logs to `logging/${systemName}/${yyyyMMdd}`.
+
+```typescript
+import { LambdaS3Logger } from "@yingyeothon/logger-s3";
+
+const { logger, flush, updateSystemId } = LambdaS3Logger({
+  logKeyPrefix: "logging",
+
+  // Lambda information
+  systemName: "HelloWorld",
+  lambdaId: "2f40adbe-b450-40fe-9796-cc3d072b4c62",
+  handlerName: "testHandler",
+
+  // Logger behavior
+  severity: "debug",
+  withConsole: false, // Its value is true as default in Lambda logger.
+
+  // S3CB Connection
+  apiUrl: "http://localhost:3000/",
+  apiId: "test",
+  apiPassword: " test"
+});
+
+async function main(systemId: string) {
+  logger.info("Before having systemId");
+  updateSystemId(systemId);
+  logger.info("After systemId is set");
+  await flush();
+}
+
+main("COMPLEX-SYSTEM-ID");
+```
+
+This is an example of a JSON serialized log tuple.
+
+```json
+{
+  "timestamp": "2020-03-15T12:36:38.094Z",
+  "level": "info",
+  "systemName": "HelloWorld",
+  "systemId": "COMPLEX-SYSTEM-ID",
+  "handlerName": "testHandler",
+  "lambdaId": "2f40adbe-b450-40fe-9796-cc3d072b4c62",
+  "args": ["Before having systemId"]
+}
+{
+  "timestamp": "2020-03-15T12:36:38.094Z",
+  "level": "info",
+  "systemName": "HelloWorld",
+  "systemId": "COMPLEX-SYSTEM-ID",
+  "handlerName": "testHandler",
+  "lambdaId": "2f40adbe-b450-40fe-9796-cc3d072b4c62",
+  "args": ["After systemId is set"]
+}
+```
+
+In this case, `withConsole` is `true` as default. And it writes a log like this.
+
+```text
+# TIMESTAMP LEVEL SYSTEM-NAME SYSTEM-ID HANDLER-NAME LAMBDA-ID LOG-ARGS
+2020-03-15T13:10:23.344Z INFO HelloWorld null testHandler 2f40adbe-b450-40fe-9796-cc3d072b4c62 Before having systemId
+2020-03-15T13:10:23.345Z INFO HelloWorld COMPLEX-SYSTEM-ID testHandler 2f40adbe-b450-40fe-9796-cc3d072b4c62 After systemId is set
+```
+
+The first console log doesn't have `systemId` because it is written before`systemId` is set. But the first JSON log have `systemId` because it is flushed after`systemId` is set. The sequence of above example is `logger.info (to console)` -> `updateSystemId` -> `logger.info (to console)` -> `flush (to S3 with JSON via S3CB)`.
+
 ## License
 
 MIT

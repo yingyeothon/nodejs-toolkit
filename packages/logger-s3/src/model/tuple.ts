@@ -1,4 +1,8 @@
+import LogSeverity from "@yingyeothon/logger/lib/severity";
+
 export default interface ILogTuple {
   key: string;
-  body: string;
+  timestamp: Date;
+  severity: LogSeverity;
+  args: any[];
 }

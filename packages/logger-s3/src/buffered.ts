@@ -1,14 +1,13 @@
 import LogSeverity from "@yingyeothon/logger/lib/severity";
 import ILogTuple from "./model/tuple";
 import { debugPrint } from "./utils/debug";
-import serialize, { LogSerializer } from "./utils/serialize";
 
 export interface IBufferedEnv {
   asKey: (date: Date, severity: LogSeverity) => string;
   autoFlushIntervalMillis?: number;
   autoFlushMaxBufferSize?: number;
   onAutoFlush: (tuples: ILogTuple[], timestamp: number) => any;
-  serializer?: LogSerializer;
+  withConsole?: boolean | ((tuple: Omit<ILogTuple, "key">) => void);
 }
 
 export default function buffered({
@@ -16,7 +15,7 @@ export default function buffered({
   autoFlushIntervalMillis = 10 * 1000,
   autoFlushMaxBufferSize = 1024,
   onAutoFlush,
-  serializer = serialize
+  withConsole = false
 }: IBufferedEnv) {
   let lastFlushed = Date.now();
   let buffer: ILogTuple[] = [];
@@ -33,8 +32,19 @@ export default function buffered({
       const now = new Date();
       buffer.push({
         key: asKey(now, severity),
-        body: serializer(now, severity, args)
+        timestamp: now,
+        severity,
+        args
       });
+
+      // Support console bypass.
+      if (typeof withConsole === "boolean") {
+        if (withConsole) {
+          console[severity](now.toISOString(), severity, ...args);
+        }
+      } else {
+        withConsole({ timestamp: now, severity, args });
+      }
 
       if (isAutoFlushable()) {
         const timestamp = Date.now();

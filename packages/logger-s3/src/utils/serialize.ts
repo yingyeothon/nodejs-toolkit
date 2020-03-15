@@ -7,7 +7,7 @@ export type LogSerializer = (
   args: any[]
 ) => string;
 
-export default function serialize(
+export default function serializeAsJSON(
   timestamp: Date,
   level: LogSeverity,
   args: any[]
