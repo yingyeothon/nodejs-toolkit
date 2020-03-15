@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const serialize_error_1 = require("serialize-error");
-function serialize(timestamp, level, args) {
+function serializeAsJSON(timestamp, level, args) {
     return (JSON.stringify({
         level,
         timestamp: timestamp.toISOString(),
@@ -13,5 +13,5 @@ function serialize(timestamp, level, args) {
         })
     }) + "\n");
 }
-exports.default = serialize;
+exports.default = serializeAsJSON;
 //# sourceMappingURL=serialize.js.map
