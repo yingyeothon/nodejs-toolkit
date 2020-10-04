@@ -1,6 +1,6 @@
 {
   "name": "@yingyeothon/logger",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A very simple logger",
   "keywords": [
     "logger"
