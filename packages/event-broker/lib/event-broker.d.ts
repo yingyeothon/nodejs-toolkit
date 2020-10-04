@@ -1,10 +1,10 @@
-declare type AnyOrPromiseAny = any | Promise<any>;
-export interface IEventListenable<E> {
-    on: <K extends keyof E>(name: K, handler: (event: E[K]) => AnyOrPromiseAny) => this;
+declare type UnknownOrPromiseUnknown = unknown | Promise<unknown>;
+export interface EventListenable<E> {
+    on: <K extends keyof E>(name: K, handler: (event: E[K]) => UnknownOrPromiseUnknown) => this;
 }
-export declare class EventBroker<E> implements IEventListenable<E> {
+export declare class EventBroker<E> implements EventListenable<E> {
     private readonly handlers;
-    on: <K extends keyof E>(name: K, handler: (event: E[K]) => any) => this;
+    on: <K extends keyof E>(name: K, handler: (event: E[K]) => UnknownOrPromiseUnknown) => this;
     protected fire: <K extends keyof E>(name: K, event: E[K]) => Promise<boolean>;
 }
 export {};

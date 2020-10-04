@@ -33,15 +33,15 @@ class AsyncBox extends EventBroker<IBoxEventMap> {
 
 test("call-data-only", () => {
   new SyncBox()
-    .on("data", value => expect(value).toEqual("hello"))
-    .on("error", error => expect(error).toBeFalsy())
+    .on("data", (value) => expect(value).toEqual("hello"))
+    .on("error", (error) => expect(error).toBeFalsy())
     .call(null, "hello");
 });
 
 test("call-error-only", () => {
   new SyncBox()
-    .on("data", value => expect(value).toBeFalsy())
-    .on("error", error => expect(error).toBeDefined())
+    .on("data", (value) => expect(value).toBeFalsy())
+    .on("error", (error) => expect(error).toBeDefined())
     .call(new Error(), null);
 });
 
@@ -67,7 +67,7 @@ test("call-many-sync-handlers", () => {
 
 test("call-many-async-handlers", async () => {
   const sleep = (millis: number) =>
-    new Promise<void>(resolve => setTimeout(resolve, millis));
+    new Promise<void>((resolve) => setTimeout(resolve, millis));
 
   const expectedData = "hello";
   let counter = 0;

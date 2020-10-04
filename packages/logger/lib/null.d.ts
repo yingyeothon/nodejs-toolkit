@@ -1,3 +1,3 @@
-import ILogger from "./logger";
-declare const nullLogger: ILogger;
+import Logger from "./logger";
+declare const nullLogger: Logger;
 export default nullLogger;

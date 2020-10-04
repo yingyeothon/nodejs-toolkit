@@ -1,11 +1,11 @@
-import ILogger from "@yingyeothon/logger/lib/logger";
-import LogSeverity from "@yingyeothon/logger/lib/severity";
 import { S3LogWriterEnv } from "./writer";
+import LogSeverity from "@yingyeothon/logger/lib/severity";
+import Logger from "@yingyeothon/logger/lib/logger";
 export declare type S3LoggerEnv = S3LogWriterEnv & {
     severity?: LogSeverity;
 };
-export interface IS3Logger {
-    logger: ILogger;
-    flush: () => Promise<any>;
+export interface S3Logger {
+    logger: Logger;
+    flush: () => Promise<unknown>;
 }
-export default function S3Logger(env: S3LoggerEnv): IS3Logger;
+export default function getS3Logger(env: S3LoggerEnv): S3Logger;

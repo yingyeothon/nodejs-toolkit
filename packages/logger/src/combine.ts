@@ -1,17 +1,21 @@
-import nullLogger from "./null";
 import LogSeverity from "./severity";
-import ILogWriter from "./writer";
+import LogWriter from "./writer";
+import nullLogger from "./null";
 
-export default function combine(...writers: ILogWriter[]): ILogWriter {
-  const combined: Partial<ILogWriter> = {};
-  for (const severity of ["debug", "info", "error"] as LogSeverity[]) {
-    combined[severity] = (...args: any[]) => {
+export default function combine(...writers: LogWriter[]): LogWriter {
+  function severityWith(severity: LogSeverity) {
+    return function (...args: unknown[]): void {
       writers
-        .filter(writer => writer !== nullLogger)
-        .forEach(writer => {
+        .filter((writer) => writer !== nullLogger)
+        .forEach((writer) => {
           writer[severity](...args);
         });
     };
   }
-  return combined as ILogWriter;
+
+  const combined: Partial<LogWriter> = {};
+  for (const severity of ["debug", "info", "error"] as LogSeverity[]) {
+    combined[severity] = severityWith(severity);
+  }
+  return combined as LogWriter;
 }

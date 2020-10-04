@@ -1,10 +1,10 @@
-import ILogger from "./logger";
+import Logger from "./logger";
 
-const nullLogger: ILogger = {
+const nullLogger: Logger = {
   severity: "none",
   debug: () => 0,
   info: () => 0,
-  error: () => 0
+  error: () => 0,
 };
 
 export default nullLogger;

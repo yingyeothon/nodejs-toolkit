@@ -1,6 +1,6 @@
 import LogSeverity from "./severity";
-import ILogWriter from "./writer";
+import LogWriter from "./writer";
 
-export default interface ILogger extends ILogWriter {
+export default interface Logger extends LogWriter {
   severity: LogSeverity;
 }

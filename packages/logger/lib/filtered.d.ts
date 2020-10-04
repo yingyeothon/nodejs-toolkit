@@ -1,11 +1,11 @@
-import ILogger from "./logger";
 import LogSeverity from "./severity";
-import ILogWriter from "./writer";
-export default class FilteredLogger implements ILogger {
+import LogWriter from "./writer";
+import Logger from "./logger";
+export default class FilteredLogger implements Logger {
     severity: LogSeverity;
     private readonly writer;
-    constructor(severity: LogSeverity, writer: ILogWriter);
-    debug: (...args: any[]) => void;
-    info: (...args: any[]) => void;
-    error: (...args: any[]) => void;
+    constructor(severity: LogSeverity, writer: LogWriter);
+    debug: (...args: unknown[]) => void;
+    info: (...args: unknown[]) => void;
+    error: (...args: unknown[]) => void;
 }

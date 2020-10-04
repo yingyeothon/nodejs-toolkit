@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.JsonCodec = void 0;
 class JsonCodec {
     encode(item) {
         if (item === undefined) {

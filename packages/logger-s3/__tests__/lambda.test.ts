@@ -16,7 +16,7 @@ test("basic-lambda", async () => {
     // S3CB Connection
     apiUrl: "http://localhost:3000/",
     apiId: "test",
-    apiPassword: " test"
+    apiPassword: " test",
   });
 
   logger.info("Info before systemId is set");

@@ -1,9 +1,9 @@
-import ILogBag from "../model/bag";
+import LogBag from "../model/bag";
 
 export default function aggregate(
   buffer: Array<{ key: string; body: string }>
-): ILogBag {
-  const bag: ILogBag = {};
+): LogBag {
+  const bag: LogBag = {};
   for (const { key, body } of buffer) {
     if (key in bag) {
       bag[key] += body;

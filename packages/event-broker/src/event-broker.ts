@@ -1,9 +1,9 @@
-type AnyOrPromiseAny = any | Promise<any>;
+type UnknownOrPromiseUnknown = unknown | Promise<unknown>;
 
 /**
  * A simple interface to listen an event specified an event map.
  */
-export interface IEventListenable<E> {
+export interface EventListenable<E> {
   /**
    * Listen an event with a handler.
    *
@@ -12,7 +12,7 @@ export interface IEventListenable<E> {
    */
   on: <K extends keyof E>(
     name: K,
-    handler: (event: E[K]) => AnyOrPromiseAny
+    handler: (event: E[K]) => UnknownOrPromiseUnknown
   ) => this;
 }
 
@@ -35,12 +35,12 @@ export interface IEventListenable<E> {
  *
  * @template E A type of event map.
  */
-export class EventBroker<E> implements IEventListenable<E> {
+export class EventBroker<E> implements EventListenable<E> {
   /**
    * A map which contains pairs of handlers with their event key.
    */
   private readonly handlers: {
-    [K in keyof E]?: Array<(event: E[K]) => AnyOrPromiseAny>;
+    [K in keyof E]?: Array<(event: E[K]) => UnknownOrPromiseUnknown>;
   } = {};
 
   /**
@@ -51,8 +51,8 @@ export class EventBroker<E> implements IEventListenable<E> {
    */
   public on = <K extends keyof E>(
     name: K,
-    handler: (event: E[K]) => AnyOrPromiseAny
-  ) => {
+    handler: (event: E[K]) => UnknownOrPromiseUnknown
+  ): this => {
     if (!this.handlers[name]) {
       this.handlers[name] = [];
     }
@@ -66,7 +66,10 @@ export class EventBroker<E> implements IEventListenable<E> {
    * @param name An event name in this event map.
    * @param event An event to fire.
    */
-  protected fire = async <K extends keyof E>(name: K, event: E[K]) => {
+  protected fire = async <K extends keyof E>(
+    name: K,
+    event: E[K]
+  ): Promise<boolean> => {
     if (!this.handlers[name]) {
       return false;
     }

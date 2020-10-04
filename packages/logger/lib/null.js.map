@@ -1,1 +1,1 @@
-{"version":3,"file":"null.js","sourceRoot":"","sources":["../src/null.ts"],"names":[],"mappings":";;AAEA,MAAM,UAAU,GAAY;IAC1B,QAAQ,EAAE,MAAM;IAChB,KAAK,EAAE,GAAG,EAAE,CAAC,CAAC;IACd,IAAI,EAAE,GAAG,EAAE,CAAC,CAAC;IACb,KAAK,EAAE,GAAG,EAAE,CAAC,CAAC;CACf,CAAC;AAEF,kBAAe,UAAU,CAAC"}
+{"version":3,"file":"null.js","sourceRoot":"","sources":["../src/null.ts"],"names":[],"mappings":";;AAEA,MAAM,UAAU,GAAW;IACzB,QAAQ,EAAE,MAAM;IAChB,KAAK,EAAE,GAAG,EAAE,CAAC,CAAC;IACd,IAAI,EAAE,GAAG,EAAE,CAAC,CAAC;IACb,KAAK,EAAE,GAAG,EAAE,CAAC,CAAC;CACf,CAAC;AAEF,kBAAe,UAAU,CAAC"}

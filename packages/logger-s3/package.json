@@ -1,6 +1,6 @@
 {
   "name": "@yingyeothon/logger-s3",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "A very simple logger to send them into S3",
   "keywords": [
     "logger"
@@ -25,16 +25,28 @@
     "url": "git+https://github.com/yingyeothon/nodejs-toolkit.git"
   },
   "scripts": {
-    "tsc": "tsc",
-    "build": "../../node_modules/.bin/tsc",
-    "test": "../../node_modules/.bin/jest --runInBand --detectOpenHandles"
+    "build": "tsc",
+    "test": "jest --runInBand --detectOpenHandles"
   },
   "bugs": {
     "url": "https://github.com/yingyeothon/nodejs-toolkit/issues"
   },
   "dependencies": {
-    "@yingyeothon/logger": "^0.2.2",
-    "@yingyeothon/s3-cache-bridge-client": "^1.0.2",
-    "serialize-error": "^5.0.0"
+    "@yingyeothon/logger": "^0.3.0",
+    "@yingyeothon/s3-cache-bridge-client": "^1.2.1",
+    "serialize-error": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "@types/node": "14",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.4.2",
+    "prettier": "^2.1.2",
+    "ts-jest": "^26.4.1",
+    "typescript": "^4.0.3"
   }
 }

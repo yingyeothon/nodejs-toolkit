@@ -1,12 +1,12 @@
-import { ILogger } from "..";
 import { FilteredLogger } from "../src";
+import { ILogger } from "..";
 
 test("filtered", () => {
   const buffer: string[] = [];
   const logger: ILogger = new FilteredLogger("info", {
-    debug: (...args: any[]) => buffer.push("debug " + args.join(" ")),
-    info: (...args: any[]) => buffer.push("info " + args.join(" ")),
-    error: (...args: any[]) => buffer.push("error " + args.join(" "))
+    debug: (...args: unknown[]) => buffer.push("debug " + args.join(" ")),
+    info: (...args: unknown[]) => buffer.push("info " + args.join(" ")),
+    error: (...args: unknown[]) => buffer.push("error " + args.join(" ")),
   });
 
   logger.debug("hi");

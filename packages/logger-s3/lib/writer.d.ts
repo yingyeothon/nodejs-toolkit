@@ -1,7 +1,7 @@
-import ILogWriter from "@yingyeothon/logger/lib/writer";
-import { IBufferedEnv } from "./buffered";
+import { BufferedEnv } from "./buffered";
 import { S3CBLogFlushEnv } from "./s3cbLogFlush";
-export declare type S3LogWriterEnv = S3CBLogFlushEnv & Omit<IBufferedEnv, "onAutoFlush">;
-export default function S3LogWriter(env: S3LogWriterEnv): ILogWriter & {
-    flush: () => Promise<any>;
+import LogWriter from "@yingyeothon/logger/lib/writer";
+export declare type S3LogWriterEnv = S3CBLogFlushEnv & Omit<BufferedEnv, "onAutoFlush">;
+export default function S3LogWriter(env: S3LogWriterEnv): LogWriter & {
+    flush: () => Promise<unknown>;
 };

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const serialize_error_1 = require("serialize-error");
 const logger_1 = require("./logger");
+const serialize_error_1 = require("serialize-error");
 const yyyyMMdd_1 = require("./utils/yyyyMMdd");
 function LambdaS3Logger(env) {
     const { systemName, handlerName, lambdaId } = env;
@@ -13,11 +13,11 @@ function LambdaS3Logger(env) {
             systemId: env.systemId,
             handlerName,
             lambdaId,
-            args: args.map(arg => arg instanceof Error ? serialize_error_1.serializeError(arg) : arg)
+            args: args.map((arg) => arg instanceof Error ? serialize_error_1.serializeError(arg) : arg),
         }) + "\n");
     }
     function writeConsole({ timestamp, severity, args }) {
-        console[severity](timestamp.toISOString(), severity.toUpperCase(), ...[systemName, env.systemId, handlerName, lambdaId].map(v => v === undefined ? "null" : v), ...args);
+        console[severity](timestamp.toISOString(), severity.toUpperCase(), ...[systemName, env.systemId, handlerName, lambdaId].map((v) => v === undefined ? "null" : v), ...args);
     }
     function updateSystemId(systemId) {
         env.systemId = systemId;

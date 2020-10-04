@@ -15,8 +15,8 @@ test("codec", () => {
     b: "hello",
     c: {
       d: 20,
-      e: "world"
-    }
+      e: "world",
+    },
   };
   const codec = new JsonCodec();
   expect(codec.decode<IContext>(codec.encode(ctx))).toEqual(ctx);

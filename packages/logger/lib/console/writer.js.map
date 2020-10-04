@@ -1,1 +1,1 @@
-{"version":3,"file":"writer.js","sourceRoot":"","sources":["../../src/console/writer.ts"],"names":[],"mappings":";;AAEA,MAAM,aAAa,GAAe;IAChC,KAAK,EAAE,OAAO,CAAC,KAAK;IACpB,IAAI,EAAE,OAAO,CAAC,IAAI;IAClB,KAAK,EAAE,OAAO,CAAC,KAAK;CACrB,CAAC;AAEF,kBAAe,aAAa,CAAC"}
+{"version":3,"file":"writer.js","sourceRoot":"","sources":["../../src/console/writer.ts"],"names":[],"mappings":";;AAEA,MAAM,aAAa,GAAc;IAC/B,KAAK,EAAE,OAAO,CAAC,KAAK;IACpB,IAAI,EAAE,OAAO,CAAC,IAAI;IAClB,KAAK,EAAE,OAAO,CAAC,KAAK;CACrB,CAAC;AAEF,kBAAe,aAAa,CAAC"}

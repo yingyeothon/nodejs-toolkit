@@ -1,13 +1,13 @@
 import LogSeverity from "@yingyeothon/logger/lib/severity";
-import ILogTuple from "./model/tuple";
-export interface IBufferedEnv {
+import LogTuple from "./model/tuple";
+export interface BufferedEnv {
     asKey: (date: Date, severity: LogSeverity) => string;
     autoFlushIntervalMillis?: number;
     autoFlushMaxBufferSize?: number;
-    onAutoFlush: (tuples: ILogTuple[], timestamp: number) => any;
-    withConsole?: boolean | ((tuple: Omit<ILogTuple, "key">) => void);
+    onAutoFlush: (tuples: LogTuple[], timestamp: number) => unknown;
+    withConsole?: boolean | ((tuple: Omit<LogTuple, "key">) => void);
 }
-export default function buffered({ asKey, autoFlushIntervalMillis, autoFlushMaxBufferSize, onAutoFlush, withConsole }: IBufferedEnv): {
-    write: (severity: LogSeverity) => (...args: any[]) => void;
-    flush: () => ILogTuple[];
+export default function buffered({ asKey, autoFlushIntervalMillis, autoFlushMaxBufferSize, onAutoFlush, withConsole, }: BufferedEnv): {
+    write: (severity: LogSeverity) => (...args: unknown[]) => void;
+    flush: () => LogTuple[];
 };

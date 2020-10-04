@@ -1,6 +1,6 @@
 {
   "name": "@yingyeothon/event-broker",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Simple event broker with asynchronous handlers",
   "keywords": [
     "event"
@@ -25,12 +25,24 @@
     "url": "git+https://github.com/yingyeothon/nodejs-toolkit.git"
   },
   "scripts": {
-    "tsc": "tsc",
-    "build": "../../node_modules/.bin/tsc",
-    "test": "../../node_modules/.bin/jest --runInBand --detectOpenHandles"
+    "build": "tsc",
+    "test": " jest --runInBand --detectOpenHandles"
   },
   "bugs": {
     "url": "https://github.com/yingyeothon/nodejs-toolkit/issues"
   },
-  "gitHead": "a4e7272ab228603daee62dafc471bc2649730006"
+  "gitHead": "a4e7272ab228603daee62dafc471bc2649730006",
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "@types/node": "14",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.4.2",
+    "prettier": "^2.1.2",
+    "ts-jest": "^26.4.1",
+    "typescript": "^4.0.3"
+  }
 }

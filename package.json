@@ -1,27 +1,16 @@
 {
   "name": "root",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "author": "jaeyoung.choi <lactrious@gmail.com>",
   "homepage": "https://github.com/yingyeothon/nodejs-toolkit",
   "license": "MIT",
-  "devDependencies": {
-    "@types/jest": "^24.0.23",
-    "@types/node": "^10.17.5",
-    "jest": "^24.9.0",
-    "lerna": "^3.19.0",
-    "prettier": "^1.19.1",
-    "ts-jest": "^24.2.0",
-    "tslint": "^5.20.1",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.7.2"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
-    "test": "jest --runInBand --detectOpenHandles",
-    "lint": "tslint **/*.ts -t verbose",
-    "build": "lerna run tsc && npm run test",
-    "deploy": "lerna publish"
+    "logger": "yarn workspace @yingyeothon/logger",
+    "logger-s3": "yarn workspace @yingyeothon/logger-s3",
+    "codec": "yarn workspace @yingyeothon/codec",
+    "event-broker": "yarn workspace @yingyeothon/event-broker"
   }
 }

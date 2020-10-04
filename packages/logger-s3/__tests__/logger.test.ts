@@ -11,7 +11,7 @@ function buildLogFileName(date: Date, severity: LogSeverity) {
     severity,
     date.getFullYear() +
       zeroPad(date.getMonth() + 1, 2) +
-      zeroPad(date.getDate(), 2)
+      zeroPad(date.getDate(), 2),
   ].join("/");
 }
 
@@ -26,7 +26,7 @@ test("basic-scenario", async () => {
     severity: "debug",
     // serializer: (timestamp, level, args) =>
     //   [timestamp.getTime(), level, ...args].join(" ") + "\n",
-    withConsole: true
+    withConsole: true,
   });
 
   for (let i = 0; i < 10; ++i) {
@@ -51,7 +51,7 @@ test("basic-scenario", async () => {
     logger.error("Error!", error);
   }
 
-  await new Promise<void>(resolve => setTimeout(resolve, 200));
+  await new Promise<void>((resolve) => setTimeout(resolve, 200));
   logger.error("Finish", "FlushALL");
 
   await flush();

@@ -1,3 +1,3 @@
-export default interface ILogBag {
+export default interface LogBag {
     [key: string]: string;
 }

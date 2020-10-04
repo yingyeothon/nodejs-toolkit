@@ -9,18 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const serialize_1 = require("./utils/serialize");
 const s3_cache_bridge_client_1 = require("@yingyeothon/s3-cache-bridge-client");
 const aggregate_1 = require("./utils/aggregate");
 const debug_1 = require("./utils/debug");
-const serialize_1 = require("./utils/serialize");
-function s3cbLogFlush({ apiUrl = process.env.S3CB_URL, apiId = process.env.S3CB_ID, apiPassword = process.env.S3CB_PASSWORD, serializer = serialize_1.default }) {
+function s3cbLogFlush({ apiUrl = process.env.S3CB_URL, apiId = process.env.S3CB_ID, apiPassword = process.env.S3CB_PASSWORD, serializer = serialize_1.default, }) {
     if (apiUrl === undefined) {
         throw new Error("No URL for S3CB");
     }
     const s3cb = s3_cache_bridge_client_1.default({
         apiUrl,
         apiId,
-        apiPassword
+        apiPassword,
     });
     let promise = Promise.resolve();
     function flush(logs, timestamp) {
@@ -28,9 +28,9 @@ function s3cbLogFlush({ apiUrl = process.env.S3CB_URL, apiId = process.env.S3CB_
             debug_1.debugPrint("S3CB", "Nothing to flush", timestamp);
             return Promise.resolve();
         }
-        const tuples = logs.map(log => ({
+        const tuples = logs.map((log) => ({
             key: log.key,
-            body: serializer(log.timestamp, log.severity, log.args)
+            body: serializer(log.timestamp, log.severity, log.args),
         }));
         const bag = aggregate_1.default(tuples);
         return (promise = promise.then(() => __awaiter(this, void 0, void 0, function* () {

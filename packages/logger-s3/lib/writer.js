@@ -9,7 +9,7 @@ function S3LogWriter(env) {
         debug: bufferWrite("debug"),
         info: bufferWrite("info"),
         error: bufferWrite("error"),
-        flush: () => s3cbFlush(bufferFlush(), Date.now())
+        flush: () => s3cbFlush(bufferFlush(), Date.now()),
     };
 }
 exports.default = S3LogWriter;

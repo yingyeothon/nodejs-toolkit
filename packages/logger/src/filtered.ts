@@ -1,13 +1,13 @@
-import ILogger from "./logger";
 import LogSeverity from "./severity";
-import ILogWriter from "./writer";
+import LogWriter from "./writer";
+import Logger from "./logger";
 
 function filteredLogger(
   severity: LogSeverity,
-  callback: (...args: any[]) => void
+  callback: (...args: unknown[]) => void
 ) {
   const thisLevel = asLevel(severity);
-  return (configuredSeverity: LogSeverity, ...args: any[]) => {
+  return (configuredSeverity: LogSeverity, ...args: unknown[]): void => {
     const configuredLevel = asLevel(configuredSeverity);
     if (thisLevel >= configuredLevel) {
       callback(...args);
@@ -27,18 +27,18 @@ function asLevel(severity: LogSeverity) {
   return 0;
 }
 
-export default class FilteredLogger implements ILogger {
+export default class FilteredLogger implements Logger {
   constructor(
     public severity: LogSeverity,
-    private readonly writer: ILogWriter
+    private readonly writer: LogWriter
   ) {}
 
-  public debug = (...args: any[]) =>
+  public debug = (...args: unknown[]): void =>
     filteredLogger("debug", this.writer.debug)(this.severity, ...args);
 
-  public info = (...args: any[]) =>
+  public info = (...args: unknown[]): void =>
     filteredLogger("info", this.writer.info)(this.severity, ...args);
 
-  public error = (...args: any[]) =>
+  public error = (...args: unknown[]): void =>
     filteredLogger("error", this.writer.error)(this.severity, ...args);
 }

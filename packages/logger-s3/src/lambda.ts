@@ -1,10 +1,11 @@
+import getS3Logger, { S3Logger, S3LoggerEnv } from "./logger";
+
 import LogSeverity from "@yingyeothon/logger/lib/severity";
+import LogTuple from "./model/tuple";
 import { serializeError } from "serialize-error";
-import S3Logger, { IS3Logger, S3LoggerEnv } from "./logger";
-import ILogTuple from "./model/tuple";
 import yyyyMMdd from "./utils/yyyyMMdd";
 
-interface ILambdaInfo {
+interface LambdaInfo {
   systemName?: string;
   systemId?: string;
   handlerName?: string;
@@ -12,12 +13,12 @@ interface ILambdaInfo {
 }
 
 export type LambdaS3LoggerEnv = Omit<S3LoggerEnv, "asKey"> &
-  ILambdaInfo & {
+  LambdaInfo & {
     logKeyPrefix?: string;
     asKey?: S3LoggerEnv["asKey"];
   };
 
-export interface ILambdaS3Logger extends IS3Logger {
+export interface ILambdaS3Logger extends S3Logger {
   updateSystemId: (systemId: string) => void;
 }
 
@@ -25,7 +26,7 @@ export default function LambdaS3Logger(
   env: LambdaS3LoggerEnv
 ): ILambdaS3Logger {
   const { systemName, handlerName, lambdaId } = env;
-  function serialize(timestamp: Date, level: LogSeverity, args: any[]) {
+  function serialize(timestamp: Date, level: LogSeverity, args: unknown[]) {
     return (
       JSON.stringify({
         timestamp: timestamp.toISOString(),
@@ -34,18 +35,18 @@ export default function LambdaS3Logger(
         systemId: env.systemId,
         handlerName,
         lambdaId,
-        args: args.map(arg =>
+        args: args.map((arg) =>
           arg instanceof Error ? serializeError(arg) : arg
-        )
+        ),
       }) + "\n"
     );
   }
 
-  function writeConsole({ timestamp, severity, args }: Omit<ILogTuple, "key">) {
+  function writeConsole({ timestamp, severity, args }: Omit<LogTuple, "key">) {
     console[severity](
       timestamp.toISOString(),
       severity.toUpperCase(),
-      ...[systemName, env.systemId, handlerName, lambdaId].map(v =>
+      ...[systemName, env.systemId, handlerName, lambdaId].map((v) =>
         v === undefined ? "null" : v
       ),
       ...args
@@ -62,12 +63,12 @@ export default function LambdaS3Logger(
     );
   }
 
-  const s3Logger = S3Logger({
+  const s3Logger = getS3Logger({
     asKey: () =>
       [env.logKeyPrefix, systemName, yyyyMMdd()].filter(Boolean).join("/"),
     serializer: serialize,
     withConsole: writeConsole,
-    ...env
+    ...env,
   });
   return { ...s3Logger, updateSystemId };
 }

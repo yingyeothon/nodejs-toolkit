@@ -1,9 +1,9 @@
-import ILogWriter from "../writer";
+import LogWriter from "../writer";
 
-const consoleWriter: ILogWriter = {
+const consoleWriter: LogWriter = {
   debug: console.debug,
   info: console.info,
-  error: console.error
+  error: console.error,
 };
 
 export default consoleWriter;

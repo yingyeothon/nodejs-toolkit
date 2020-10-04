@@ -1,2 +1,2 @@
-import ILogWriter from "./writer";
-export default function combine(...writers: ILogWriter[]): ILogWriter;
+import LogWriter from "./writer";
+export default function combine(...writers: LogWriter[]): LogWriter;

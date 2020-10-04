@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const debug_1 = require("./utils/debug");
-function buffered({ asKey, autoFlushIntervalMillis = 10 * 1000, autoFlushMaxBufferSize = 1024, onAutoFlush, withConsole = false }) {
+function buffered({ asKey, autoFlushIntervalMillis = 10 * 1000, autoFlushMaxBufferSize = 1024, onAutoFlush, withConsole = false, }) {
     let lastFlushed = Date.now();
     let buffer = [];
     function isAutoFlushable() {
@@ -15,7 +15,7 @@ function buffered({ asKey, autoFlushIntervalMillis = 10 * 1000, autoFlushMaxBuff
                 key: asKey(now, severity),
                 timestamp: now,
                 severity,
-                args
+                args,
             });
             if (typeof withConsole === "boolean") {
                 if (withConsole) {

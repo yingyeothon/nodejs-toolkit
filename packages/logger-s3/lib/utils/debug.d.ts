@@ -1,1 +1,1 @@
-export declare function debugPrint(...args: any[]): void;
+export declare function debugPrint(...args: unknown[]): void;
