@@ -1,6 +1,6 @@
-export { default as ILogger } from "./logger";
+export { default as Logger } from "./logger";
 export { default as LogSeverity } from "./severity";
-export { default as ILogWriter } from "./writer";
+export { default as LogWriter } from "./writer";
 export { default as FilteredLogger } from "./filtered";
 export { default as combine } from "./combine";
 
