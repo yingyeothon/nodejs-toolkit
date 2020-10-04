@@ -20,15 +20,16 @@ It uses `yarn workspace` for monorepo.
 - Execute `create` command and copy `tsconfig.json` file from any other project.
 
 ```bash
-lerna create new-package
+mkdir -p packages/new-package
 cd packages/new-package
+yarn init
 cp ../codec/tsconfig.json .
 ln -s ../../.eslint* .
 cp ../../jest.config.js .
 cp -r ../../.vscode .
 ```
 
-- Fill `package.json` file referencing any other project. Should fill up `typings`, `publishConfig` and `scripts.[tsc, build, test]`.
+- Fill `package.json` file referencing any other project. Should fill up `typings`, `publishConfig` and `scripts.[build, test]`.
 
 ### Write a code and build
 
