@@ -1,4 +1,4 @@
-declare type UnknownOrPromiseUnknown = unknown | Promise<unknown>;
+type UnknownOrPromiseUnknown = unknown | Promise<unknown>;
 export interface EventListenable<E> {
     on: <K extends keyof E>(name: K, handler: (event: E[K]) => UnknownOrPromiseUnknown) => this;
 }

@@ -17,7 +17,7 @@ function s3cbLogFlush({ apiUrl = process.env.S3CB_URL, apiId = process.env.S3CB_
     if (apiUrl === undefined) {
         throw new Error("No URL for S3CB");
     }
-    const s3cb = s3_cache_bridge_client_1.default({
+    const s3cb = (0, s3_cache_bridge_client_1.default)({
         apiUrl,
         apiId,
         apiPassword,
@@ -25,16 +25,16 @@ function s3cbLogFlush({ apiUrl = process.env.S3CB_URL, apiId = process.env.S3CB_
     let promise = Promise.resolve();
     function flush(logs, timestamp) {
         if (logs.length === 0) {
-            debug_1.debugPrint("S3CB", "Nothing to flush", timestamp);
+            (0, debug_1.debugPrint)("S3CB", "Nothing to flush", timestamp);
             return Promise.resolve();
         }
         const tuples = logs.map((log) => ({
             key: log.key,
             body: serializer(log.timestamp, log.severity, log.args),
         }));
-        const bag = aggregate_1.default(tuples);
+        const bag = (0, aggregate_1.default)(tuples);
         return (promise = promise.then(() => __awaiter(this, void 0, void 0, function* () {
-            debug_1.debugPrint("S3CB", "Do flush", timestamp, bag);
+            (0, debug_1.debugPrint)("S3CB", "Do flush", timestamp, bag);
             yield Promise.all(Object.entries(bag).map(([key, body]) => s3cb.append(key, body)));
         })));
     }

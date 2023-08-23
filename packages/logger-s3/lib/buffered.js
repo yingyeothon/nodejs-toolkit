@@ -27,14 +27,14 @@ function buffered({ asKey, autoFlushIntervalMillis = 10 * 1000, autoFlushMaxBuff
             }
             if (isAutoFlushable()) {
                 const timestamp = Date.now();
-                debug_1.debugPrint("BUFFERED", "Try to auto flush", timestamp);
+                (0, debug_1.debugPrint)("BUFFERED", "Try to auto flush", timestamp);
                 const flushed = flush();
                 if (flushed.length > 0) {
-                    debug_1.debugPrint("BUFFERED", "Do auto flush", timestamp);
+                    (0, debug_1.debugPrint)("BUFFERED", "Do auto flush", timestamp);
                     onAutoFlush(flushed, timestamp);
                 }
                 else {
-                    debug_1.debugPrint("BUFFERED", "Nothing to auto flush", timestamp);
+                    (0, debug_1.debugPrint)("BUFFERED", "Nothing to auto flush", timestamp);
                 }
             }
         };

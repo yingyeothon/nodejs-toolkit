@@ -7,7 +7,7 @@ function serializeAsJSON(timestamp, level, args) {
         timestamp: timestamp.toISOString(),
         args: args.map((arg) => {
             if (arg instanceof Error) {
-                return serialize_error_1.serializeError(arg);
+                return (0, serialize_error_1.serializeError)(arg);
             }
             return arg;
         }),

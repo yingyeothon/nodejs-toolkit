@@ -1,7 +1,7 @@
 import { S3LogWriterEnv } from "./writer";
 import LogSeverity from "@yingyeothon/logger/lib/severity";
 import Logger from "@yingyeothon/logger/lib/logger";
-export declare type S3LoggerEnv = S3LogWriterEnv & {
+export type S3LoggerEnv = S3LogWriterEnv & {
     severity?: LogSeverity;
 };
 export interface S3Logger {

@@ -5,7 +5,7 @@ interface LambdaInfo {
     handlerName?: string;
     lambdaId?: string;
 }
-export declare type LambdaS3LoggerEnv = Omit<S3LoggerEnv, "asKey"> & LambdaInfo & {
+export type LambdaS3LoggerEnv = Omit<S3LoggerEnv, "asKey"> & LambdaInfo & {
     logKeyPrefix?: string;
     asKey?: S3LoggerEnv["asKey"];
 };

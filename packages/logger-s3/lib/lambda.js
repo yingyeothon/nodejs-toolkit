@@ -13,7 +13,7 @@ function LambdaS3Logger(env) {
             systemId: env.systemId,
             handlerName,
             lambdaId,
-            args: args.map((arg) => arg instanceof Error ? serialize_error_1.serializeError(arg) : arg),
+            args: args.map((arg) => arg instanceof Error ? (0, serialize_error_1.serializeError)(arg) : arg),
         }) + "\n");
     }
     function writeConsole({ timestamp, severity, args }) {
@@ -25,7 +25,7 @@ function LambdaS3Logger(env) {
     if (!env.asKey && !env.logKeyPrefix && !env.systemName) {
         throw new Error("Please set one of `asKey`, `logKeyPrefix` and `systemName` at least");
     }
-    const s3Logger = logger_1.default(Object.assign({ asKey: () => [env.logKeyPrefix, systemName, yyyyMMdd_1.default()].filter(Boolean).join("/"), serializer: serialize, withConsole: writeConsole }, env));
+    const s3Logger = (0, logger_1.default)(Object.assign({ asKey: () => [env.logKeyPrefix, systemName, (0, yyyyMMdd_1.default)()].filter(Boolean).join("/"), serializer: serialize, withConsole: writeConsole }, env));
     return Object.assign(Object.assign({}, s3Logger), { updateSystemId });
 }
 exports.default = LambdaS3Logger;
