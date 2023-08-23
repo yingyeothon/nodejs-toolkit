@@ -1,16 +1,24 @@
 {
-  "name": "root",
+  "name": "nodejs-toolkit",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "author": "jaeyoung.choi <lactrious@gmail.com>",
   "homepage": "https://github.com/yingyeothon/nodejs-toolkit",
   "license": "MIT",
   "scripts": {
-    "logger": "yarn workspace @yingyeothon/logger",
-    "logger-s3": "yarn workspace @yingyeothon/logger-s3",
-    "codec": "yarn workspace @yingyeothon/codec",
-    "event-broker": "yarn workspace @yingyeothon/event-broker"
+    "build": "pnpm run -r build",
+    "test": "pnpm run -r test"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.4",
+    "@types/node": "20",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "jest": "^29.6.3",
+    "prettier": "^3.0.2",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6"
   }
 }

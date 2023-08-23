@@ -13,7 +13,7 @@ Many of things would be deployed to [npmjs](https://www.npmjs.com/org/yingyeotho
 
 ## Development
 
-It uses `yarn workspace` for monorepo.
+It uses `pnpm` for monorepo.
 
 ### Create a new
 
@@ -22,7 +22,7 @@ It uses `yarn workspace` for monorepo.
 ```bash
 mkdir -p packages/new-package
 cd packages/new-package
-yarn init
+pnpm init
 cp ../codec/tsconfig.json .
 ln -s ../../.eslint* .
 cp ../../jest.config.js .
@@ -33,21 +33,11 @@ cp -r ../../.vscode .
 
 ### Write a code and build
 
-- Write its codes.
-- Add a shortcut `yarn workspace package-name` into `package.json` at root directory.
-- Build with `yarn package-name build`.
-
-If you want to build the only one package, please use `yarn build` in the specific package directory.
+Please use `pnpm build` in the specific package directory.
 
 ### Test
 
-Write some test codes that import a library from JavaScript that built by `tsc`. Run `yarn package-name test`.
-
-If you want to test the only one package, please use `yarn test` in the specific package directory.
-
-### Use other packages
-
-If a package would reference other packages, do `yarn add @yingyeothon/package-name@version`.
+Write some test codes that import a library from JavaScript that built by `tsc`. Run `pnpm test`.
 
 ### Publish
 
@@ -55,8 +45,7 @@ If a package would reference other packages, do `yarn add @yingyeothon/package-n
 - Check if it can build to JavaScript properly.
 - Check if it passes all tests we write.
 - Check the version of this package.
-- `yarn publish` If you want to deploy it as alone.
-- Or if you want to deploy all of them, do `yarn workspaces run publish` at the root directory that deploy all things after build and test them.
+- `pnpm publish`.
 
 ## License
 
