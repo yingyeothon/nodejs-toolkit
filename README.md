@@ -1,3 +1,18 @@
+> ## ⚠️ DEPRECATED — moved to [yingyeothon/tslib](https://github.com/yingyeothon/tslib)
+>
+> This repository is archived and no longer maintained. Its packages now live in the
+> `tslib` monorepo and are published from there as **v2.0.0+** with a redesigned API
+> (see each package's README there for migration notes).
+>
+> | Package here (last release from this repo) | Successor in `tslib` |
+> | --- | --- |
+> | `@yingyeothon/codec` | `@yingyeothon/codec` |
+> | `@yingyeothon/event-broker` | `@yingyeothon/event-broker` |
+> | `@yingyeothon/logger` | `@yingyeothon/logger` |
+> | `@yingyeothon/logger-s3` | `@yingyeothon/logger-s3` |
+>
+> Versions published from this repository stay on npm but are marked deprecated.
+
 # NodeJS Toolkit for Yingyeothon
 
 A bundle of small libraries for [yingyeothon](https://yyt.life)'s infrastructure.
